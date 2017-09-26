@@ -5,13 +5,6 @@ public class Card
 	private String description;
 	private String comment;
 	
-	
-	public Card(String title, String description, String comment) {
-		
-		this.title = title;
-		this.description = description;
-		this.comment = comment;
-	}
 	public Card(){
 		title = "N/A";
 		description = "Insert description here.";

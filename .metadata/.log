@@ -1,0 +1,244 @@
+!SESSION 2017-09-25 22:00:15.236 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-09-25 22:00:55.186
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Tien'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 4 0 2017-09-25 22:04:43.643
+!MESSAGE Invalid project description.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Invalid project description.
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:169)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:53)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:263)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:247)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createExistingProject(ProjectUtils.java:179)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.access$0(ProjectUtils.java:142)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils$1.run(ProjectUtils.java:97)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2262)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:134)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:60)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.importProjects(GitImportWizard.java:253)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.access$2(GitImportWizard.java:235)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard$4.run(GitImportWizard.java:205)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:119)
+Contains: OK
+Contains: C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2017-09-25 22:04:43.646
+!MESSAGE Invalid project description.
+!SUBENTRY 2 unknown 0 0 2017-09-25 22:04:43.646
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2017-09-25 22:04:43.646
+!MESSAGE C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2017-09-25 22:17:28.026
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2017-09-25 22:17:28.026
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE Software being installed: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE Missing requirement: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core 1.8.1.20170728-1531) requires 'bundle com.google.guava [21.0.0,22.0.0)' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.026
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE From: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core.ui 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE To: bundle org.eclipse.m2e.core [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.026
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE From: m2e logback appender 1.8.1.20170728-1531 (org.eclipse.m2e.logback.appender 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE To: bundle org.eclipse.m2e.core.ui [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.026
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE From: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.026
+!MESSAGE To: org.eclipse.m2e.logback.appender [1.8.1.20170728-1531]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2017-09-25 22:17:28.085
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2017-09-25 22:17:28.085
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE Software being installed: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE Missing requirement: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core 1.8.1.20170728-1531) requires 'bundle com.google.guava [21.0.0,22.0.0)' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.085
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE From: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core.ui 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE To: bundle org.eclipse.m2e.core [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.085
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE From: m2e logback appender 1.8.1.20170728-1531 (org.eclipse.m2e.logback.appender 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE To: bundle org.eclipse.m2e.core.ui [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.085
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE From: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.085
+!MESSAGE To: org.eclipse.m2e.logback.appender [1.8.1.20170728-1531]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2017-09-25 22:17:28.177
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2017-09-25 22:17:28.177
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE Software being installed: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE Missing requirement: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core 1.8.1.20170728-1531) requires 'bundle com.google.guava [21.0.0,22.0.0)' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.177
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE From: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core.ui 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE To: bundle org.eclipse.m2e.core [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.177
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE From: m2e logback appender 1.8.1.20170728-1531 (org.eclipse.m2e.logback.appender 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE To: bundle org.eclipse.m2e.core.ui [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.177
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE From: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.177
+!MESSAGE To: org.eclipse.m2e.logback.appender [1.8.1.20170728-1531]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2017-09-25 22:17:28.184
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2017-09-25 22:17:28.184
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE Software being installed: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE Missing requirement: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core 1.8.1.20170728-1531) requires 'bundle com.google.guava [21.0.0,22.0.0)' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.184
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE From: Maven Integration for Eclipse 1.8.1.20170728-1531 (org.eclipse.m2e.core.ui 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE To: bundle org.eclipse.m2e.core [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.184
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE From: m2e logback appender 1.8.1.20170728-1531 (org.eclipse.m2e.logback.appender 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE To: bundle org.eclipse.m2e.core.ui [1.8.1,1.9.0)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2017-09-25 22:17:28.184
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE From: m2e - slf4j over logback logging (Optional) 1.8.1.20170728-1531 (org.eclipse.m2e.logback.feature.feature.group 1.8.1.20170728-1531)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2017-09-25 22:17:28.184
+!MESSAGE To: org.eclipse.m2e.logback.appender [1.8.1.20170728-1531]
+!SESSION 2017-09-25 22:18:21.170 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-09-25 22:19:44.294
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Tien'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 4 0 2017-09-25 22:34:06.292
+!MESSAGE Invalid project description.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Invalid project description.
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:169)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:53)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:263)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:247)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createExistingProject(ProjectUtils.java:179)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.access$0(ProjectUtils.java:142)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils$1.run(ProjectUtils.java:97)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2262)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:134)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:60)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.importProjects(GitImportWizard.java:253)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.access$2(GitImportWizard.java:235)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard$4.run(GitImportWizard.java:205)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:119)
+Contains: OK
+Contains: C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2017-09-25 22:34:06.293
+!MESSAGE Invalid project description.
+!SUBENTRY 2 unknown 0 0 2017-09-25 22:34:06.293
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2017-09-25 22:34:06.293
+!MESSAGE C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+
+!ENTRY org.eclipse.egit.ui 4 0 2017-09-25 22:34:12.534
+!MESSAGE Invalid project description.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Invalid project description.
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:169)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:53)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:263)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:247)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createExistingProject(ProjectUtils.java:179)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.access$0(ProjectUtils.java:142)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils$1.run(ProjectUtils.java:97)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2262)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:134)
+	at org.eclipse.egit.ui.internal.clone.ProjectUtils.createProjects(ProjectUtils.java:60)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.importProjects(GitImportWizard.java:253)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard.access$2(GitImportWizard.java:235)
+	at org.eclipse.egit.ui.internal.clone.GitImportWizard$4.run(GitImportWizard.java:205)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:119)
+Contains: OK
+Contains: C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2017-09-25 22:34:12.534
+!MESSAGE Invalid project description.
+!SUBENTRY 2 unknown 0 0 2017-09-25 22:34:12.534
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2017-09-25 22:34:12.534
+!MESSAGE C:\Users\Tien\Desktop\software design\git\project4 overlaps the workspace location: C:\Users\Tien\Desktop\software design\git\project4
+!SESSION 2017-09-25 22:59:01.141 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-09-25 22:59:23.969
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Tien'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2017-09-25 23:14:44.232 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-09-25 23:15:07.010
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Tien'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
