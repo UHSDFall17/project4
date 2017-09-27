@@ -1,44 +1,61 @@
+import java.util.ArrayList;
 
 public class Card 
 {
 	private String title;
 	private String description;
-	private String comment;
+	private ArrayList<Comment> commentList = new ArrayList<Comment>(); 
 	
-	public Card(String title, String description, String comment) 
+	public Card(String title, String description, Comment commentValue) 
 	{
 		this.title = title;
 		this.description = description;
-		this.comment = comment;
+		this.addToCommentList(commentValue);
 	}
 	
-	public Card(){
+	public Card(String title, String description)
+	{
+		this.title = title;
+		this.description = description;
+	}
+	
+	public Card()
+	{
 		title = "N/A";
 		description = "Insert description here.";
-		comment  = "Insert comment here.";
 	}
-	public void setTitle(String temp_title)
+	
+	public void addToCommentList(Comment commentInput)
+	{
+		commentList.add(commentInput);
+	}
+
+	public int getCommentListSize()
+	{
+		return commentList.size();
+	}
+
+	public Comment getCommentListElement(int index)
+	{
+		return commentList.get(index);
+	}
+	
+
+	public void setCardTitle(String temp_title)
 	{
 		title = temp_title;
 	}
-	public String getTitle()
+	public String getCardTitle()
 	{
 		return title;
 	}
-	public void setDescription(String temp_description)
+	public void setCardDescription(String temp_description)
 	{
 		description = temp_description;
 	}
-	public String getDescription()
+	public String getCardDescription()
 	{
 		return description;
 	}
-	public void setComment(String temp_comment)
-	{
-		comment = temp_comment;
-	}
-	public String getComment()
-	{
-		return comment;
-	}
+	
 }

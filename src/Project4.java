@@ -3,15 +3,32 @@ public class Project4
 {
 	public static void main(String[] args)
 	{
-		Card card1 = new Card( "tit", "dis","com");
-		Card card2 = new Card( "tit2", "dis2","com2");
-		List list1 = new List();
+		Comment comment1 = new Comment("comment1comment1comment1comment1comment1comment1");
+		Comment comment2 = new Comment("comment2comment2comment2comment2comment2comment2comment2");
+		Comment comment3 = new Comment("comment3comment3comment3comment3");
+		
+		Card card1 = new Card( "titleOfCard1", "discriptionOfCard1");
+		card1.addToCommentList(comment1);
+		Card card2 = new Card( "titleOfCard2", "discriptionOfCard2");
+		card2.addToCommentList(comment2);
+		Card card3 = new Card( "titleOfCard3", "discriptionOfCard3");
+		card3.addToCommentList(comment3);
+		
+		List list1 = new List("List_Title_blahblah1");
+		List list2 = new List("List_Title_Of_blahblah2");
+		
+		
+
+		list1.addToCardList(card1);
+		list1.addToCardList(card2);
+		list2.addToCardList(card3);
+		
+		Board board1 = new Board();
+		board1.addToListArray(list1);
+		board1.addToListArray(list2);
 
 		View view = new View();
-
-		list1.addToList(card1);
-		list1.addToList(card2);
-
-		view.printCard(list1);
+		view.printBoard(board1);
+		
 	}
 }
