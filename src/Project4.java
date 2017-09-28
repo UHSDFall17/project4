@@ -3,6 +3,7 @@ public class Project4
 {
 	public static void main(String[] args)
 	{
+		//TESTING
 		Comment comment1 = new Comment("comment1comment1comment1comment1comment1comment1");
 		Comment comment2 = new Comment("comment2comment2comment2comment2comment2comment2comment2");
 		Comment comment3 = new Comment("comment3comment3comment3comment3");
