@@ -1,6 +1,7 @@
 
 public class ProjectTitle {
 
+	// INTRO TITLE
 	public void printTitle()
 	{
 		
@@ -16,7 +17,8 @@ public class ProjectTitle {
 "                           _MM_    _MM_     YMMMM9  _MM__MM_ YMMMMM9          YMMMM9  MMMMMMMM \n" +
 "                                                                                           MM  \n" +
 "                                                                                           MM  \n" +
-"                                                                                           MM  \n");
+"                                                                                           MM  ");
+		System.out.println("1. Login \t 2.Resgister \t 3.Exit\n");
 		
 	}
 }
