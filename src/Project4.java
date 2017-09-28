@@ -26,7 +26,6 @@ public class Project4
 			Scanner user_input = new Scanner(System.in); 
 			input1 = user_input.next();
 			
-			System.out.println();
 			System.out.print("Password: ");
 			Scanner pass_input = new Scanner(System.in);
 			input2 = user_input.next();
