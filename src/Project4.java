@@ -28,6 +28,8 @@ public class Project4
 		Controller controller = new Controller();
 		controller.idNumGen(board1);
 
+		ProjectTitle PTitle = new ProjectTitle();
+		PTitle.printTitle();
 		View view = new View();
 		view.printBoard(board1);
 		
