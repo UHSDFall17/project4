@@ -17,8 +17,6 @@ public class Project4
 		List list1 = new List("List_Title_blahblah1");
 		List list2 = new List("List_Title_Of_blahblah2");
 		
-		
-
 		list1.addToCardList(card1);
 		list1.addToCardList(card2);
 		list2.addToCardList(card3);
@@ -26,6 +24,9 @@ public class Project4
 		Board board1 = new Board();
 		board1.addToListArray(list1);
 		board1.addToListArray(list2);
+		
+		Controller controller = new Controller();
+		controller.idNumGen(board1);
 
 		View view = new View();
 		view.printBoard(board1);

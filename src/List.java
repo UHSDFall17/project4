@@ -3,13 +3,12 @@ import java.util.ArrayList;
 public class List 
 {
 	private String listTitle;
-	private int task_num;
+	private int listIdNum;
 	private ArrayList<Card> cardList = new ArrayList<Card>(); 
 
 	public List()
 	{
 		listTitle = "N/A";
-		task_num = 0;
 	}	
 
 	public List(String Title)
@@ -32,7 +31,6 @@ public class List
 		return cardList.get(index);
 	}
 
-
 	public String getListTitle() {
 		return listTitle;
 	}
@@ -41,13 +39,13 @@ public class List
 		this.listTitle = listTitle;
 	}
 
-	public int getTask_num() {
-		return task_num;
+	public int getlistIdNum() {
+		return listIdNum;
 	}
 
-	public void setTask_num(int task_num) {
+	public void setlistIdNum(int num) {
 
-		this.task_num = task_num;
+		this.listIdNum = num;
 
 	}
 

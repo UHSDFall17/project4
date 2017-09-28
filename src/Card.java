@@ -4,6 +4,7 @@ public class Card
 {
 	private String title;
 	private String description;
+	private int cardIdNum;
 	private ArrayList<Comment> commentList = new ArrayList<Comment>(); 
 	
 	public Card(String title, String description, Comment commentValue) 
@@ -40,7 +41,6 @@ public class Card
 		return commentList.get(index);
 	}
 	
-
 	public void setCardTitle(String temp_title)
 	{
 		title = temp_title;
@@ -57,5 +57,14 @@ public class Card
 	{
 		return description;
 	}
+
+	public int getCardIdNum() {
+		return cardIdNum;
+	}
+
+	public void setCardIdNum(int cardIdNum) {
+		this.cardIdNum = cardIdNum;
+	}
+	
 	
 }
