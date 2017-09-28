@@ -1,5 +1,6 @@
 public class View {
-
+	
+	// PRINT ALL OBJECTS IN A BOARD 
 	public void printBoard(Board boardInput)
 	{
 		for(int i = 0; i < boardInput.getListArraySize(); i++)

@@ -1,7 +1,7 @@
 
 public class Controller {
 	
-	
+	// GENERATE A UNIQUE NUMBER FOR CARDS AND LISTS
 	public void idNumGen(Board boardInput)
 	{
 		int cardCounter = 1;
