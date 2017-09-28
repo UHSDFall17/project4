@@ -1,6 +1,10 @@
 
 public class Controller {
-	
+	Controller()
+	{
+		// Request login information from the user
+		Login login = new Login();
+	}
 	// GENERATE A UNIQUE NUMBER FOR CARDS AND LISTS
 	public void idNumGen(Board boardInput)
 	{
