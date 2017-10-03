@@ -1,10 +1,27 @@
 
 public class Controller {
-	Controller()
+	private dbManager db;
+	
+	/**
+	 * Creates a new dbManager object.
+	 * 
+	 */
+	public void createDBmanager()
+	{
+		db = new dbManager();
+	}
+	
+	/**
+	 * Logs in an existing user.
+	 * 
+	 */
+	public void loginExistingUser()
 	{
 		// Request login information from the user
 		Login login = new Login();
+		login.loginUser(db);
 	}
+	
 	// GENERATE A UNIQUE NUMBER FOR CARDS AND LISTS
 	public void idNumGen(Board boardInput)
 	{

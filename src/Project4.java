@@ -32,6 +32,8 @@ public class Project4
 		board1.addToListArray(list2);
 		
 		Controller controller = new Controller();
+		controller.createDBmanager();
+		controller.loginExistingUser();
 		controller.idNumGen(board1);
 
 		ProjectTitle PTitle = new ProjectTitle();
