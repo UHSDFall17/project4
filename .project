@@ -22,6 +22,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>.travis.yml</name>
+			<type>1</type>
+			<location>E:/Dropbox/School/_UH_/2017 - Fall/4 - COSC 4353 - Software Design/Software Design Project/project4/.travis.yml</location>
+		</link>
+		<link>
 			<name>login.txt</name>
 			<type>1</type>
 			<location>E:/Dropbox/School/_UH_/2017 - Fall/4 - COSC 4353 - Software Design/Software Design Project/project4/login.txt</location>

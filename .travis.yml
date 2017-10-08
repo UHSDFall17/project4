@@ -1,0 +1,3 @@
+language: java
+script: mvn clean compile -DskiptTests
+https://github.com/UHSDFall17/project4
