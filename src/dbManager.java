@@ -2,7 +2,8 @@
  * This class acts as the interface between the program
  * and the database.
  * 
- * These methods should ONLY be called by the Controller class.
+ * These methods should ONLY be called by another class--usually
+ * the Controller.
  *
  */
 
@@ -78,6 +79,40 @@ public class dbManager
 		}
 		
 		return usernameFound;
+	}
+	
+	/**
+	 * Inserts a new user into the `user` table.
+	 * 
+	 * @param newUsername The username to insert.
+	 * @param newPassword The password to insert.
+	 */
+	public void addUser(String newUsername, String newPassword)
+	{
+		try
+		{
+    		Connection conn = this.connect();
+    		
+    		/* Prepare a statement to insert a new user into the
+    		 * `user` table. */
+    		
+    		String sql = "INSERT INTO user(username,password)"
+    				+ "VALUES(?,?)";
+    		PreparedStatement pstmt  = conn.prepareStatement(sql);
+    				
+    		// Pass the parameters into the statement
+    		pstmt.setString(1, newUsername);
+    		pstmt.setString(2, newPassword);
+    		
+    		pstmt.executeUpdate();   		
+    		
+    		conn.close();
+    	} 
+    	
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}
 	}
 	
 	/**

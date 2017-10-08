@@ -11,7 +11,8 @@ public class Controller {
 		db = new dbManager();
 	}
 	
-	/** Queries the database to determine if a username already exists.
+	/** 
+	 * Queries the database to determine if a username already exists.
 	 * 
 	 * @param user
 	 * @return True if `username` matches a record in the database,
@@ -20,6 +21,17 @@ public class Controller {
 	public boolean searchForUsername(String username)
 	{
 		return db.searchForUsername(username);
+	}
+	
+	/**
+	 * Adds a new user to the database.
+	 * 
+	 * @param newUsername The username to insert.
+	 * @param newPassword The password to insert.
+	 */
+	public void addUser(String newUsername, String newPassword)
+	{
+		db.addUser(newUsername, newPassword);
 	}
 	
 	/**
@@ -48,7 +60,5 @@ public class Controller {
 				cardCounter ++;
 			}
 		}
-	}
-
-	
+	}	
 }

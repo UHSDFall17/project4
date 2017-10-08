@@ -39,6 +39,6 @@ public class Project4
 		ProjectTitle PTitle = new ProjectTitle();
 		PTitle.printTitle();
 		View view = new View();
-		view.printBoard(board1);		
+		view.printBoard(board1);
 	}
 }
