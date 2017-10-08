@@ -159,5 +159,36 @@ public class dbManager
 		}
     	
     	return recordFound;
-    }		
+    }
+	
+	/**
+	 * Deletes a user from the database.
+	 * 
+	 * @param username The username of the user to be deleted.
+	 */
+	public void deleteUser(String username)
+	{
+		try
+		{
+    		Connection conn = this.connect();
+    		
+    		/* Prepare a statement to delete a user from the
+    		 * `user` table. */
+    		
+    		String sql = "DELETE FROM user WHERE username = ?";
+    		PreparedStatement pstmt  = conn.prepareStatement(sql);
+    				
+    		// Pass the parameters into the statement
+    		pstmt.setString(1, username);
+    		
+    		pstmt.executeUpdate();   		
+    		
+    		conn.close();
+    	} 
+    	
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}
+	}
 }

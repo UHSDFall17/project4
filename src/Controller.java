@@ -60,5 +60,15 @@ public class Controller {
 				cardCounter ++;
 			}
 		}
-	}	
+	}
+	
+	/**
+	 * Deletes a user from the database.
+	 * 
+	 * @param username The username of the user to be deleted.
+	 */
+	public void deleteUser(String username)
+	{
+		db.deleteUser(username);
+	}
 }
