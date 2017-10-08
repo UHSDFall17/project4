@@ -1,6 +1,8 @@
 /**
  * This class acts as the interface between the program
  * and the database.
+ * 
+ * These methods should ONLY be called by the Controller class.
  *
  */
 
@@ -34,6 +36,49 @@ public class dbManager
         
 		return conn;
     }
+	
+	/**
+	 * Queries the database to determine if a username already exists.
+	 * 
+	 * @param username The username to search for.
+	 * @return True if `username` matches a record in the database,
+	 * false otherwise.
+	 */
+	public boolean searchForUsername(String username)
+	{
+		boolean usernameFound = false;
+		
+    	try
+		{
+    		Connection conn = this.connect();
+    		
+    		/* Prepare a query statement to search the database for a matching
+    		 * username. */
+    		
+    		String sql = "SELECT * FROM user WHERE username = ?";
+    		PreparedStatement pstmt  = conn.prepareStatement(sql);
+    				
+    		// Pass the parameters into the statement
+    		pstmt.setString(1, username);
+    		
+    		ResultSet rs = pstmt.executeQuery();
+    		
+    		// Does the result set contain a record?
+    		if (rs.next())
+    		{
+    			usernameFound = true;
+    		}
+    		
+    		conn.close();
+    	} 
+    	
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}
+		
+		return usernameFound;
+	}
 	
 	/**
 	 * Queries the database for a username and password.
