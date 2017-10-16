@@ -36,6 +36,7 @@ public class Login {
 				System.out.println("Welcome " + input1 + "!");
             	successful_login = true;
             	user_input.close();
+            	
 			}			
 		}		
 	}
