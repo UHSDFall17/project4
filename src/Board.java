@@ -18,4 +18,9 @@ public class Board {
 	{
 		return listArray.size();
 	}
+	
+	public void deleteList(int index)
+	{
+		listArray.remove(index-1);
+	}
 }

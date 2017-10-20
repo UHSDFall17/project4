@@ -49,14 +49,12 @@ public class List
 
 	}
 
-
-
-	
-
-	
-
-	
+	public void deleteCard(int index)
+	{
+		cardList.remove(index-1);
+	}
 
 	
 
+	
 }

@@ -7,6 +7,7 @@ public class Command {
 	private String SelectName;
 	
 	public ArrayList<String> processInput(String input){
+		
 		ArrayList <String> InputList = new ArrayList<String>();
 		
 		String delims = "[ ]+";
