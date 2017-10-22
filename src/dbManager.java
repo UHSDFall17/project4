@@ -195,4 +195,41 @@ public class dbManager
     		System.out.println(e.getMessage());
 		}
 	}
+	
+	public void loadBoardData(Board board, int boardID)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			loadLists(conn, board, boardID);
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}
+	}
+	
+	private void loadLists(Connection conn, Board board, int boardID) throws SQLException
+	{
+		String sql = "SELECT * FROM list WHERE board_id = ?";
+		PreparedStatement pstmt  = conn.prepareStatement(sql);
+				
+		// Pass the parameters into the statement
+		pstmt.setInt(1, boardID);
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next())
+		{
+			int listIdNum = rs.getInt("l_id");
+			String listTitle = rs.getString("list_title");
+			
+			List list = new List(listIdNum, listTitle);
+			board.addToListArray(list);
+		}
+	}
 }

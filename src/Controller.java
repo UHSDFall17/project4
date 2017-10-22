@@ -82,6 +82,11 @@ public class Controller {
 		db.deleteUser(username);
 	}
 	
+	public void loadBoardData(Board board, int boardID)
+	{
+		db.loadBoardData(board, boardID);
+	}
+	
 	public void invalidCommand(Board bor)
 	{
 		System.out.println("INVALID COMMAND INPUT. PLEASE TRY AGAIN. IF YOU NEED HELP, TYPE \"HELP\".");
