@@ -46,11 +46,13 @@ public class Controller {
 	 * Logs in an existing user.
 	 * 
 	 */
-	public void loginExistingUser()
+	public User loginExistingUser()
 	{
 		// Request login information from the user
 		Login login = new Login();
-		login.loginUser(db);
+		User user = login.loginUser(db);
+		
+		return user;
 	}
 	
 	// GENERATE A UNIQUE NUMBER FOR CARDS AND LISTS

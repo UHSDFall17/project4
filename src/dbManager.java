@@ -116,16 +116,16 @@ public class dbManager
 	}
 	
 	/**
-	 * Queries the database for a username and password.
+	 * Loads data for an existing user.
 	 * 
-	 * @param username The username to search for.
-	 * @param password The password to search for.
-	 * @return True if the username and password match a record
-	 * in the database; false otherwise.
+	 * @param username The username to load.
+	 * @param password The user's password.
+	 * @return A User object if the user exists; null if the database
+	 * has no matching user.
 	 */
-	public boolean verifyUser(String username, String password)
+	public User loadUser(String username, String password)
     {
-		boolean recordFound = false;
+		User user = null;
     	
     	try
 		{
@@ -144,10 +144,14 @@ public class dbManager
     		
     		ResultSet rs = pstmt.executeQuery();
     		
-    		// Does the result set contain a record?
+    		// attempt to load user data
     		if (rs.next())
     		{
-    			recordFound = true;
+    			int userid = rs.getInt("userid");
+    			String userName = rs.getString("username");
+    			int currentBoardNum = rs.getInt("current_board");
+    			
+    			user = new User(userid, userName, currentBoardNum);
     		}
     		
     		conn.close();
@@ -158,7 +162,7 @@ public class dbManager
     		System.out.println(e.getMessage());
 		}
     	
-    	return recordFound;
+    	return user;
     }
 	
 	/**

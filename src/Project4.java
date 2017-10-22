@@ -33,12 +33,17 @@ public class Project4
 		
 		Controller controller = new Controller();
 		controller.createDBmanager();
-		controller.loginExistingUser();
+		User user = controller.loginExistingUser();
 		controller.idNumGen(board1);
 
 		ProjectTitle PTitle = new ProjectTitle();
 		PTitle.printTitle();
 		View view = new View();
 		view.printBoard(board1);
+		
+//		System.out.println("Testing User class...");
+//		System.out.println("userid: " + user.getUserid());
+//		System.out.println("username: " + user.getUserName());
+//		System.out.println("currentBoardNum: " + user.getCurrentBoardNum());
 	}
 }
