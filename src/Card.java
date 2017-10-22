@@ -4,7 +4,8 @@ public class Card
 {
 	private String title;
 	private String description;
-	private int cardIdNum;
+	private int cardIdNum;			// id number to display in view for the user
+	private int cardPrimaryKey;		// used to identify the card in the database
 	private ArrayList<Comment> commentList = new ArrayList<Comment>(); 
 	
 	public Card(String title, String description, Comment commentValue) 
@@ -20,9 +21,10 @@ public class Card
 		this.description = description;
 	}
 	
-	public Card(int cardIdNum, String title, String description)
+	public Card(int cardIdNum, int cardPrimaryKey, String title, String description)
 	{
 		this.cardIdNum = cardIdNum;
+		this.cardPrimaryKey = cardPrimaryKey;
 		this.title = title;
 		this.description = description;
 	}
@@ -73,5 +75,13 @@ public class Card
 		this.cardIdNum = cardIdNum;
 	}
 	
+	public int getCardPrimaryKey()
+	{
+		return cardPrimaryKey;
+	}
 	
+	public void setCardPrimaryKey(int cardPrimaryKey)
+	{
+		this.cardPrimaryKey = cardPrimaryKey;
+	}
 }

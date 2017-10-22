@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class dbManager 
-{
+{	
 	/**
 	 * Establishes a connection to the database.
 	 * 
@@ -236,6 +236,7 @@ public class dbManager
 		pstmt.setInt(1, boardID);
 		
 		ResultSet rs = pstmt.executeQuery();
+		int cardIdNum = 1;
 		
 		while (rs.next())
 		{
@@ -244,7 +245,7 @@ public class dbManager
 			
 			// Create a List object and add the Cards that belong to it
 			List list = new List(listIdNum, listTitle);
-			loadCards(conn, list, listIdNum);
+			cardIdNum = loadCards(conn, list, listIdNum, cardIdNum);
 			
 			board.addToListArray(list);
 		}
@@ -258,7 +259,7 @@ public class dbManager
 	 * @param listIdNum A unique number identifying the list.
 	 * @throws SQLException
 	 */
-	private void loadCards(Connection conn, List list, int listIdNum) throws SQLException
+	private int loadCards(Connection conn, List list, int listIdNum, int cardIdNum) throws SQLException
 	{
 		String sql = "SELECT * FROM card WHERE list_id = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -270,12 +271,16 @@ public class dbManager
 		
 		while (rs.next())
 		{
-			int cardIdNum = rs.getInt("c_id");
+			int cardPrimaryKey = rs.getInt("c_id");
 			String title = rs.getString("card_title");
 			String description = rs.getString("description");
 			
-			Card card = new Card(cardIdNum, title, description);
+			Card card = new Card(cardIdNum, cardPrimaryKey, title, description);
 			list.addToCardList(card);
+			cardIdNum++;
 		}
+		
+		/* Return the current cardIdNum so the count will continue linearly. */
+		return cardIdNum;
 	}
 }
