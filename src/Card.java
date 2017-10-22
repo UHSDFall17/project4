@@ -20,6 +20,13 @@ public class Card
 		this.description = description;
 	}
 	
+	public Card(int cardIdNum, String title, String description)
+	{
+		this.cardIdNum = cardIdNum;
+		this.title = title;
+		this.description = description;
+	}
+	
 	public Card()
 	{
 		title = "N/A";

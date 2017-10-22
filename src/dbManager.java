@@ -136,7 +136,7 @@ public class dbManager
     		
     		String sql = "SELECT * FROM user WHERE username = ?"
 					+ "AND password = ?";
-    		PreparedStatement pstmt  = conn.prepareStatement(sql);
+    		PreparedStatement pstmt = conn.prepareStatement(sql);
     				
     		// Pass the parameters into the statement
     		pstmt.setString(1, username);
@@ -196,6 +196,12 @@ public class dbManager
 		}
 	}
 	
+	/**
+	 * Loads all data associated with a particular Board.
+	 * 
+	 * @param board The Board object that is currently active.
+	 * @param boardID A unique number identifying the board.
+	 */
 	public void loadBoardData(Board board, int boardID)
 	{
 		try
@@ -213,10 +219,18 @@ public class dbManager
 		}
 	}
 	
+	/**
+	 * Loads all List objects associated with a particular Board.
+	 * 
+	 * @param conn An active database connection.
+	 * @param board The currently active Board object.
+	 * @param boardID A unique number identifying the board.
+	 * @throws SQLException
+	 */
 	private void loadLists(Connection conn, Board board, int boardID) throws SQLException
 	{
 		String sql = "SELECT * FROM list WHERE board_id = ?";
-		PreparedStatement pstmt  = conn.prepareStatement(sql);
+		PreparedStatement pstmt = conn.prepareStatement(sql);
 				
 		// Pass the parameters into the statement
 		pstmt.setInt(1, boardID);
@@ -228,8 +242,40 @@ public class dbManager
 			int listIdNum = rs.getInt("l_id");
 			String listTitle = rs.getString("list_title");
 			
+			// Create a List object and add the Cards that belong to it
 			List list = new List(listIdNum, listTitle);
+			loadCards(conn, list, listIdNum);
+			
 			board.addToListArray(list);
+		}
+	}
+	
+	/**
+	 * Loads all Card objects associated with a particular List.
+	 * 
+	 * @param conn An active database connection.
+	 * @param list A List object.
+	 * @param listIdNum A unique number identifying the list.
+	 * @throws SQLException
+	 */
+	private void loadCards(Connection conn, List list, int listIdNum) throws SQLException
+	{
+		String sql = "SELECT * FROM card WHERE list_id = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		// Pass the parameters into the statement
+		pstmt.setInt(1, listIdNum);
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next())
+		{
+			int cardIdNum = rs.getInt("c_id");
+			String title = rs.getString("card_title");
+			String description = rs.getString("description");
+			
+			Card card = new Card(cardIdNum, title, description);
+			list.addToCardList(card);
 		}
 	}
 }

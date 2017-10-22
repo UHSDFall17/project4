@@ -82,6 +82,12 @@ public class Controller {
 		db.deleteUser(username);
 	}
 	
+	/**
+	 * Loads all List and Card data for the current Board.
+	 * 
+	 * @param board The currently active Board object.
+	 * @param boardID A unique number identifying the board.
+	 */
 	public void loadBoardData(Board board, int boardID)
 	{
 		db.loadBoardData(board, boardID);
