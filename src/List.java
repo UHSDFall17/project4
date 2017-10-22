@@ -16,6 +16,12 @@ public class List
 		this.listTitle = Title;
 	}
 	
+	public List(int listIdNum, String listTitle)
+	{
+		this.listIdNum = listIdNum;
+		this.listTitle = listTitle;
+	}
+	
 	public void addToCardList(Card cardInput)
 	{
 		cardList.add(cardInput);

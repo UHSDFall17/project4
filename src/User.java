@@ -6,14 +6,14 @@ public class User
 	private String userName;		// the username; should be unique in the database
 	private int currentBoardNum;	// the user's current active board
 	
-	User()
+	public User()
 	{
 		userid = -1;
 		userName = "no name";
 		currentBoardNum = -1;
 	}
 	
-	User(int newUserid, String newUserName, int newCurrentBoard)
+	public User(int newUserid, String newUserName, int newCurrentBoard)
 	{
 		userid = newUserid;
 		userName = newUserName;

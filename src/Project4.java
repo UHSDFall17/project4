@@ -41,6 +41,12 @@ public class Project4
 		View view = new View();
 		view.printBoard(board1);
 		
+		Board dbBoard = new Board();
+		int boardID = user.getCurrentBoardNum();
+		controller.loadBoardData(dbBoard, boardID);
+		
+		view.printBoard(dbBoard);
+		
 //		System.out.println("Testing User class...");
 //		System.out.println("userid: " + user.getUserid());
 //		System.out.println("username: " + user.getUserName());
