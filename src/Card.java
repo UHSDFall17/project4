@@ -21,9 +21,8 @@ public class Card
 		this.description = description;
 	}
 	
-	public Card(int cardIdNum, int cardPrimaryKey, String title, String description)
+	public Card(int cardPrimaryKey, String title, String description)
 	{
-		this.cardIdNum = cardIdNum;
 		this.cardPrimaryKey = cardPrimaryKey;
 		this.title = title;
 		this.description = description;

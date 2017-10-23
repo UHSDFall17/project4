@@ -48,6 +48,7 @@ public class Project4
 		Board dbBoard = new Board();
 		int boardID = user.getCurrentBoardNum();
 		controller.loadBoardData(dbBoard, boardID);
+		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
 		
