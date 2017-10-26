@@ -29,7 +29,6 @@ public class dbManagerTest
 				+ "database...");
 		db.addUser("Grumpy Cat", "12345678");
 		
-		System.out.println("Searching database for Grumpy Cat...");
 		boolean usernameFound = db.searchForUsername("Grumpy Cat");
 		assertTrue(usernameFound);
 		System.out.println("User found: " + usernameFound);
@@ -37,10 +36,25 @@ public class dbManagerTest
 		System.out.println("Deleting Grumpy Cat from database...");
 		db.deleteUser("Grumpy Cat");
 		
-		System.out.println("Searching database for Grumpy Cat...");
 		usernameFound = db.searchForUsername("Grumpy Cat");
 		assertFalse(usernameFound);
 		System.out.println("User found: " + usernameFound);
+		
+		System.out.println("Test successful\n");
+	}
+	
+	@Test
+	public void testLoadUser()
+	{
+		int userid = 1;
+		int currentBoardNum = 1;
+		User testUser = new User(userid, "Hello", currentBoardNum);
+		
+		System.out.println("Loading user \"Hello\" from database...");
+		User dbUser = db.loadUser("Hello", "Hello");
+		
+		System.out.println("Testing loaded user data...");
+		assertEquals(testUser, dbUser);
 		
 		System.out.println("Test successful\n");
 	}
