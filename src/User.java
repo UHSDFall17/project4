@@ -49,4 +49,28 @@ public class User
 	{
 		return currentBoardNum;
 	}
+	
+	public boolean equals(Object o)
+	{
+		if (!(o instanceof User))
+		{
+			return false;
+		}
+		
+		else
+		{
+			User objUser = (User) o;
+			if (userid == objUser.userid
+					&& userName.equals(objUser.userName)
+					&& currentBoardNum == objUser.currentBoardNum)
+			{
+				return true;
+			}
+			
+			else
+			{
+				return false;
+			}
+		}
+	}
 }
