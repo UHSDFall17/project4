@@ -274,7 +274,8 @@ public class dbManager
 			String title = rs.getString("card_title");
 			String description = rs.getString("description");
 			
-			Card card = new Card(cardPrimaryKey, title, description);
+			Card card = new Card(title, description);
+			card.setCardPrimaryKey(cardPrimaryKey);
 			list.addToCardList(card);
 		}
 	}

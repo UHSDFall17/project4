@@ -21,13 +21,6 @@ public class Card
 		this.description = description;
 	}
 	
-	public Card(int cardPrimaryKey, String title, String description)
-	{
-		this.cardPrimaryKey = cardPrimaryKey;
-		this.title = title;
-		this.description = description;
-	}
-	
 	public Card()
 	{
 		title = "N/A";
