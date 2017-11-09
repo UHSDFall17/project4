@@ -93,6 +93,16 @@ public class Controller {
 		db.loadBoardData(board, boardID);
 	}
 	
+	/**
+	 * Saves the data for a single Card to the database.
+	 * 
+	 * @param card The Card object with data to be saved.
+	 */
+	public void saveCard(List list, Card card)
+	{
+		db.saveCard(list, card);
+	}
+	
 	public void invalidCommand(Board bor)
 	{
 		System.out.println("INVALID COMMAND INPUT. PLEASE TRY AGAIN. IF YOU NEED HELP, TYPE \"HELP\".");

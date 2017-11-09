@@ -53,5 +53,15 @@ public class Project4
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
+		
+		System.out.println("\nAdding new Cards...\n");
+		
+		Card card = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
+		List list = dbBoard.getListArrayElement(0);
+		list.addToCardList(card);
+		controller.saveCard(list, card);
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
 	}
 }

@@ -284,29 +284,32 @@ public class dbManager
 	/**
 	 * Saves Card data to the database. 
 	 * 
-	 * @param card
+	 * @param card The Card object with data to be saved.
 	 */
-	public void saveCard(Card card)
+	public void saveCard(List list, Card card)
 	{
 		try
 		{
 			Connection conn = this.connect();
 			
 			String sql;
-			int c_id = card.getCardPrimaryKey();
-			int list_id = card.getCardIdNum();
+			int cardPrimaryKey = card.getCardPrimaryKey();
+			int list_id = list.getlistIdNum();
 			String card_title = card.getCardTitle();
 			String description = card.getCardDescription();
 			
-			
-			if (c_id == -1)
+			// Is this a new Card?
+			if (cardPrimaryKey == -1)
 			{
+				// Prepare to insert a new row into the database table
 				sql = "INSERT INTO card(list_id, card_title, description)"
 						+ "VALUES(?, ?, ?)";
 			}
 			
+			// This Card already exists
 			else
 			{
+				// Prepare to update an existing row in the table
 				sql = "UPDATE card SET list_id = ?, card_title = ?,"
 						+ "description = ?"
 						+ "WHERE c_id = ?";
@@ -317,24 +320,26 @@ public class dbManager
 			pstmt.setString(2, card_title);
 			pstmt.setString(3, description);
 			
-			if (c_id == -1)
+			/* When updating the table entry for a Card that already exists, we need
+			 * to include the primary key already assigned to it. */
+			if (cardPrimaryKey != -1)
 			{
-				pstmt.setInt(4, c_id);
+				pstmt.setInt(4, cardPrimaryKey);
 			}
 			
 			pstmt.executeUpdate();
 			
-			if (c_id == -1)
+			/* If this is a new Card, we need to get the primary key that's just
+			 * been assigned to it. Then we update the Card object with the new
+			 * primary key so we can later update its entry in the database.*/
+			if (cardPrimaryKey == -1)
 			{
-				sql = "SELECT LAST_INSERT_ROWID()";
+				sql = "SELECT last_insert_rowid() AS LAST FROM card";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				
-				while (rs.next())
-				{
-					int new_c_id = rs.getInt("c_id");
-					card.setCardPrimaryKey(new_c_id);
-				}
+				int newPrimaryKey = rs.getInt("LAST");
+				card.setCardPrimaryKey(newPrimaryKey);				
 			}
 			
 			conn.close();
@@ -344,5 +349,10 @@ public class dbManager
     	{
     		System.out.println(e.getMessage());
 		}	
+	}
+	
+	public void deleteCard()
+	{
+		
 	}
 }
