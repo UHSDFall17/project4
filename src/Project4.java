@@ -42,10 +42,10 @@ public class Project4
 		view.printBoard(board1);
 		
 		// for database testing
-		testMikeStuff(user, controller, view);
+		testDatabaseStuff(user, controller, view);
 	}
 	
-	public static void testMikeStuff(User user, Controller controller, View view)
+	public static void testDatabaseStuff(User user, Controller controller, View view)
 	{
 		Board dbBoard = new Board();
 		int boardID = user.getCurrentBoardNum();
@@ -54,12 +54,20 @@ public class Project4
 		
 		view.printBoard(dbBoard);
 		
-		System.out.println("\nAdding new Cards...\n");
+		System.out.println("\nAdding new Card...\n");
 		
-		Card card = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
-		List list = dbBoard.getListArrayElement(0);
-		list.addToCardList(card);
-		controller.saveCard(list, card);
+		Card yoyoCard = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
+		List list1 = dbBoard.getListArrayElement(0);
+		list1.addToCardList(yoyoCard);
+		controller.saveCard(list1, yoyoCard);
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
+		
+		System.out.println("\nModifying existing Card...\n");
+		
+		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
+		controller.saveCard(list1, yoyoCard);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
