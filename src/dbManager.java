@@ -10,6 +10,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -274,8 +275,74 @@ public class dbManager
 			String title = rs.getString("card_title");
 			String description = rs.getString("description");
 			
-			Card card = new Card(cardPrimaryKey, title, description);
+			Card card = new Card(title, description);
+			card.setCardPrimaryKey(cardPrimaryKey);
 			list.addToCardList(card);
 		}
+	}
+	
+	/**
+	 * Saves Card data to the database. 
+	 * 
+	 * @param card
+	 */
+	public void saveCard(Card card)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			String sql;
+			int c_id = card.getCardPrimaryKey();
+			int list_id = card.getCardIdNum();
+			String card_title = card.getCardTitle();
+			String description = card.getCardDescription();
+			
+			
+			if (c_id == -1)
+			{
+				sql = "INSERT INTO card(list_id, card_title, description)"
+						+ "VALUES(?, ?, ?)";
+			}
+			
+			else
+			{
+				sql = "UPDATE card SET list_id = ?, card_title = ?,"
+						+ "description = ?"
+						+ "WHERE c_id = ?";
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, list_id);
+			pstmt.setString(2, card_title);
+			pstmt.setString(3, description);
+			
+			if (c_id == -1)
+			{
+				pstmt.setInt(4, c_id);
+			}
+			
+			pstmt.executeUpdate();
+			
+			if (c_id == -1)
+			{
+				sql = "SELECT LAST_INSERT_ROWID()";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				while (rs.next())
+				{
+					int new_c_id = rs.getInt("c_id");
+					card.setCardPrimaryKey(new_c_id);
+				}
+			}
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
 	}
 }

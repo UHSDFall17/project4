@@ -12,6 +12,7 @@ public class Card
 	{
 		this.title = title;
 		this.description = description;
+		cardPrimaryKey = -1;
 		this.addToCommentList(commentValue);
 	}
 	
@@ -19,19 +20,14 @@ public class Card
 	{
 		this.title = title;
 		this.description = description;
-	}
-	
-	public Card(int cardPrimaryKey, String title, String description)
-	{
-		this.cardPrimaryKey = cardPrimaryKey;
-		this.title = title;
-		this.description = description;
+		cardPrimaryKey = -1;
 	}
 	
 	public Card()
 	{
 		title = "N/A";
 		description = "Insert description here.";
+		cardPrimaryKey = -1;
 	}
 	
 	public void addToCommentList(Comment commentInput)
