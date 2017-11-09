@@ -103,6 +103,16 @@ public class Controller {
 		db.saveCard(list, card);
 	}
 	
+	/**
+	 * Deletes the data for a single Card from the database.
+	 * 
+	 * @param card The Card object with data to be saved.
+	 */
+	public void deleteCard(Card card)
+	{
+		db.deleteCard(card);
+	}
+	
 	public void invalidCommand(Board bor)
 	{
 		System.out.println("INVALID COMMAND INPUT. PLEASE TRY AGAIN. IF YOU NEED HELP, TYPE \"HELP\".");

@@ -64,10 +64,22 @@ public class Project4
 		
 		view.printBoard(dbBoard);
 		
-		System.out.println("\nModifying existing Card...\n");
+		System.out.println("Modifying existing Card...\n");
 		
 		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
 		controller.saveCard(list1, yoyoCard);
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
+		
+		System.out.println("Deleting \"yoyo\" Card...\n");
+		
+		//int cardIndex = 4;
+		//Card toDelete = list1.getCardListElement(4);
+		//controller.deleteCard(toDelete);
+		//list1.deleteCard(cardIndex);
+		controller.deleteCard(yoyoCard);
+		list1.deleteCard(4);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);

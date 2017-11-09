@@ -282,7 +282,7 @@ public class dbManager
 	}
 	
 	/**
-	 * Saves Card data to the database. 
+	 * Saves the data for a single Card to the database.
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
@@ -351,8 +351,30 @@ public class dbManager
 		}	
 	}
 	
-	public void deleteCard()
+	/**
+	 * Deletes the data for a single Card from the database.
+	 * 
+	 * @param card The Card object with data to be saved.
+	 */
+	public void deleteCard(Card card)
 	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			String sql = "DELETE FROM card WHERE c_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, card.getCardPrimaryKey());
+			
+			pstmt.executeUpdate();
+			
+			conn.close();
+		}
 		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
 	}
 }
