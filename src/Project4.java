@@ -41,17 +41,17 @@ public class Project4
 		View view = new View();
 		view.printBoard(board1);
 		
-		//----------------------------------
-		// testing database functionality
-		//----------------------------------
-		
+		// for database testing
+		testMikeStuff(user, controller, view);
+	}
+	
+	public static void testMikeStuff(User user, Controller controller, View view)
+	{
 		Board dbBoard = new Board();
 		int boardID = user.getCurrentBoardNum();
 		controller.loadBoardData(dbBoard, boardID);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
-		
-		// end test
 	}
 }
