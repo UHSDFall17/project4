@@ -4,22 +4,26 @@ public class List
 {
 	private String listTitle;
 	private int listIdNum;
+	private int listPrimaryKey; // used to identify the List in the database
 	private ArrayList<Card> cardList = new ArrayList<Card>(); 
 
 	public List()
 	{
 		listTitle = "N/A";
+		listPrimaryKey = -1;
 	}	
 
 	public List(String Title)
 	{
 		this.listTitle = Title;
+		listPrimaryKey = -1;
 	}
 	
 	public List(int listIdNum, String listTitle)
 	{
 		this.listIdNum = listIdNum;
 		this.listTitle = listTitle;
+		listPrimaryKey = -1;
 	}
 	
 	public void addToCardList(Card cardInput)
@@ -48,11 +52,21 @@ public class List
 	public int getlistIdNum() {
 		return listIdNum;
 	}
+	
+	public int getListPrimaryKey() 
+	{
+		return listPrimaryKey;
+	}
 
 	public void setlistIdNum(int num) {
 
 		this.listIdNum = num;
 
+	}
+	
+	public void setListPrimaryKey(int listPrimaryKey)
+	{
+		this.listPrimaryKey = listPrimaryKey;
 	}
 
 	public void deleteCard(int index)
