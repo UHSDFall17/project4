@@ -420,9 +420,51 @@ public class dbManager
 	}
 	
 	/**
+	 * Deletes the data for a single List from the database.
+	 * This will also delete data for any Cards associated with
+	 * the deleted list.
+	 * 
+	 * @param list The List object with data to be deleted.
+	 */
+	public void deleteListFromDB(List list)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			int listPrimaryKey = list.getListPrimaryKey();
+			
+			// Delete List data from the database
+			
+			String sql = "DELETE FROM list WHERE l_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, listPrimaryKey);
+			
+			pstmt.executeUpdate();
+			
+			// Delete Card data associated with the deleted List
+			
+			sql = "DELETE FROM card where list_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, listPrimaryKey);
+			
+			pstmt.executeUpdate();
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
+	}
+	
+	/**
 	 * Deletes the data for a single Card from the database.
 	 * 
-	 * @param card The Card object with data to be saved.
+	 * @param card The Card object with data to be deleted.
 	 */
 	public void deleteCard(Card card)
 	{

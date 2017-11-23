@@ -106,6 +106,18 @@ public class Controller {
 	}
 	
 	/**
+	 * Deletes the data for a single List from the database.
+	 * This will also delete data for any Cards associated with
+	 * the deleted list.
+	 * 
+	 * @param list The List object with data to be deleted.
+	 */
+	public void deleteListFromDB(List list)
+	{
+		db.deleteListFromDB(list);
+	}
+	
+	/**
 	 * Saves the data for a single Card to the database.
 	 * 
 	 * @param card The Card object with data to be saved.

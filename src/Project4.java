@@ -42,6 +42,8 @@ public class Project4
 		view.printBoard(board1);
 		
 		// for database testing
+		// username: Hello
+		// password: Hello
 		testDatabaseStuff(user, controller, view);
 	}
 	
@@ -84,11 +86,28 @@ public class Project4
 		
 		view.printBoard(dbBoard);
 		
-		System.out.println("Adding new List...\n");
+		System.out.println("Adding new List with two Cards...\n");
 		
 		List list2 = new List("List for Testing");
 		dbBoard.addToListArray(list2);
 		controller.saveListToDB(user, list2);
+		
+		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
+		list2.addToCardList(testCard1);
+		controller.saveCard(list2, testCard1);
+		
+		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
+		list2.addToCardList(testCard2);
+		controller.saveCard(list2, testCard2);
+		
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
+		
+		System.out.println("Deleting List...\n");
+		
+		controller.deleteListFromDB(list2);
+		dbBoard.deleteList(3);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
