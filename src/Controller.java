@@ -94,6 +94,18 @@ public class Controller {
 	}
 	
 	/**
+	 * Saves the data for a single List to the database.
+	 * This does not save data for any Cards the List may be holding.
+	 * 
+	 * @param user The User that is current logged in.
+	 * @param list The List object with data to be saved.
+	 */
+	public void saveListToDB(User user, List list)
+	{
+		db.saveListToDB(user, list);
+	}
+	
+	/**
 	 * Saves the data for a single Card to the database.
 	 * 
 	 * @param card The Card object with data to be saved.

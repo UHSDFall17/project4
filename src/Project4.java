@@ -83,5 +83,14 @@ public class Project4
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
+		
+		System.out.println("Adding new List...\n");
+		
+		List list2 = new List("List for Testing");
+		dbBoard.addToListArray(list2);
+		controller.saveListToDB(user, list2);
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
 	}
 }

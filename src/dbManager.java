@@ -282,6 +282,74 @@ public class dbManager
 	}
 	
 	/**
+	 * Saves the data for a single List to the database.
+	 * This does not save data for any Cards the List may be holding.
+	 * 
+	 * @param user The User that is current logged in.
+	 * @param list The List object with data to be saved.
+	 */
+	public void saveListToDB(User user, List list)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			String sql;
+			int listPrimaryKey = list.getListPrimaryKey();
+			int board_id = user.getCurrentBoardNum();
+			String list_title = list.getListTitle();
+			
+			// Is this a new List?
+			if (listPrimaryKey == -1)
+			{
+				// Prepare to insert a new row into the database table
+				sql = "INSERT INTO list(board_id, list_title) VALUES(?, ?)";
+			}
+			
+			// This List already exists
+			else
+			{
+				// Prepare to update an existing row in the table
+				sql = "UPDATE list SET board_id = ?, list_title = ?"
+						+ "WHERE l_id = ?";
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_id);
+			pstmt.setString(2, list_title);
+			
+			/* When updating the table entry for a List that already exists, we need
+			 * to include the primary key already assigned to it. */
+			if (listPrimaryKey != -1)
+			{
+				pstmt.setInt(3, listPrimaryKey);
+			}
+			
+			pstmt.executeUpdate();
+			
+			/* If this is a new List, we need to get the primary key that's just
+			 * been assigned to it. Then we update the List object with the new
+			 * primary key so we can later update its entry in the database.*/
+			if (listPrimaryKey == -1)
+			{
+				sql = "SELECT last_insert_rowid() AS LAST FROM list";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				int newPrimaryKey = rs.getInt("LAST");
+				list.setListPrimaryKey(newPrimaryKey);				
+			}
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
+	}
+	
+	/**
 	 * Saves the data for a single Card to the database.
 	 * 
 	 * @param card The Card object with data to be saved.
@@ -294,7 +362,7 @@ public class dbManager
 			
 			String sql;
 			int cardPrimaryKey = card.getCardPrimaryKey();
-			int list_id = list.getlistIdNum();
+			int list_id = list.getListPrimaryKey();
 			String card_title = card.getCardTitle();
 			String description = card.getCardDescription();
 			
