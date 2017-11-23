@@ -122,9 +122,9 @@ public class Controller {
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void saveCard(List list, Card card)
+	public void saveCardToDB(List list, Card card)
 	{
-		db.saveCard(list, card);
+		db.saveCardToDB(list, card);
 	}
 	
 	/**
@@ -132,9 +132,9 @@ public class Controller {
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void deleteCard(Card card)
+	public void deleteCardFromDB(Card card)
 	{
-		db.deleteCard(card);
+		db.deleteCardFromDB(card);
 	}
 	
 	public void invalidCommand(Board bor)

@@ -354,7 +354,7 @@ public class dbManager
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void saveCard(List list, Card card)
+	public void saveCardToDB(List list, Card card)
 	{
 		try
 		{
@@ -466,7 +466,7 @@ public class dbManager
 	 * 
 	 * @param card The Card object with data to be deleted.
 	 */
-	public void deleteCard(Card card)
+	public void deleteCardFromDB(Card card)
 	{
 		try
 		{

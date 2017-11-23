@@ -56,12 +56,12 @@ public class Project4
 		
 		view.printBoard(dbBoard);
 		
-		System.out.println("\nAdding new Card...\n");
+		System.out.println("Adding new Card...\n");
 		
 		Card yoyoCard = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
 		List list1 = dbBoard.getListArrayElement(0);
 		list1.addToCardList(yoyoCard);
-		controller.saveCard(list1, yoyoCard);
+		controller.saveCardToDB(list1, yoyoCard);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
@@ -69,7 +69,7 @@ public class Project4
 		System.out.println("Modifying existing Card...\n");
 		
 		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
-		controller.saveCard(list1, yoyoCard);
+		controller.saveCardToDB(list1, yoyoCard);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
@@ -80,7 +80,7 @@ public class Project4
 		//Card toDelete = list1.getCardListElement(4);
 		//controller.deleteCard(toDelete);
 		//list1.deleteCard(cardIndex);
-		controller.deleteCard(yoyoCard);
+		controller.deleteCardFromDB(yoyoCard);
 		list1.deleteCard(4);
 		controller.idNumGen(dbBoard);
 		
@@ -94,11 +94,11 @@ public class Project4
 		
 		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
 		list2.addToCardList(testCard1);
-		controller.saveCard(list2, testCard1);
+		controller.saveCardToDB(list2, testCard1);
 		
 		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
 		list2.addToCardList(testCard2);
-		controller.saveCard(list2, testCard2);
+		controller.saveCardToDB(list2, testCard2);
 		
 		controller.idNumGen(dbBoard);
 		
