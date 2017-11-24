@@ -64,9 +64,17 @@ public class List
 
 	}
 	
-	public void setListPrimaryKey(int listPrimaryKey)
+	public void setListPrimaryKey(int listPrimaryKey, dbManager caller)
 	{
-		this.listPrimaryKey = listPrimaryKey;
+		if (caller instanceof dbManager)
+		{
+			this.listPrimaryKey = listPrimaryKey;
+		}
+		
+		else
+		{
+			System.err.println("Error: caller is not an instance of dbManager");
+		}
 	}
 
 	public void deleteCard(int index)

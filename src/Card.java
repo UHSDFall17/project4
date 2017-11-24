@@ -75,8 +75,16 @@ public class Card
 		return cardPrimaryKey;
 	}
 	
-	public void setCardPrimaryKey(int cardPrimaryKey)
+	public void setCardPrimaryKey(int cardPrimaryKey, dbManager caller)
 	{
-		this.cardPrimaryKey = cardPrimaryKey;
+		if (caller instanceof dbManager)
+		{
+			this.cardPrimaryKey = cardPrimaryKey;
+		}
+		
+		else
+		{
+			System.err.println("Error: caller is not an instance of dbManager");
+		}
 	}
 }

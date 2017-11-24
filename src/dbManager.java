@@ -301,7 +301,7 @@ public class dbManager
 			String description = rs.getString("description");
 			
 			Card card = new Card(title, description);
-			card.setCardPrimaryKey(cardPrimaryKey);
+			card.setCardPrimaryKey(cardPrimaryKey, this);
 			list.addToCardList(card);
 		}
 	}
@@ -362,7 +362,7 @@ public class dbManager
 				ResultSet rs = stmt.executeQuery(sql);
 				
 				int newPrimaryKey = rs.getInt("LAST");
-				list.setListPrimaryKey(newPrimaryKey);				
+				list.setListPrimaryKey(newPrimaryKey, this);				
 			}
 			
 			conn.close();
@@ -432,7 +432,7 @@ public class dbManager
 				ResultSet rs = stmt.executeQuery(sql);
 				
 				int newPrimaryKey = rs.getInt("LAST");
-				card.setCardPrimaryKey(newPrimaryKey);				
+				card.setCardPrimaryKey(newPrimaryKey, this);				
 			}
 			
 			conn.close();
