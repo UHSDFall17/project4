@@ -41,9 +41,9 @@ public class Project4
 		View view = new View();
 		view.printBoard(board1);
 		
-		// for database testing
-		// username: Hello
-		// password: Hello
+		/* for database testing
+		username: Hello
+		password: Hello */
 		testDatabaseStuff(user, controller, view);
 	}
 	

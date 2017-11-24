@@ -50,16 +50,11 @@ public class User
 		return currentBoardNum;
 	}
 	
-	public boolean equals(Object o)
+	public boolean equals(Object obj)
 	{
-		if (!(o instanceof User))
+		if (obj != null && obj.getClass() == getClass())
 		{
-			return false;
-		}
-		
-		else
-		{
-			User objUser = (User) o;
+			User objUser = (User) obj;
 			if (userid == objUser.userid
 					&& userName.equals(objUser.userName)
 					&& currentBoardNum == objUser.currentBoardNum)
@@ -71,6 +66,11 @@ public class User
 			{
 				return false;
 			}
+		}
+		
+		else
+		{
+			return false;
 		}
 	}
 }
