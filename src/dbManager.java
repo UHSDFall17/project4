@@ -88,7 +88,8 @@ public class dbManager
 	 * @param newUsername The username to insert.
 	 * @param newPassword The password to insert.
 	 */
-	public void addUser(String newUsername, String newPassword)
+	public void addUser(String newUsername, String newPassword,
+			boolean isCorporate)
 	{
 		try
 		{
@@ -97,13 +98,28 @@ public class dbManager
     		/* Prepare a statement to insert a new user into the
     		 * `user` table. */
     		
-    		String sql = "INSERT INTO user(username,password)"
+    		String sql = "INSERT INTO user(username, password, is_corporate)"
     				+ "VALUES(?,?)";
     		PreparedStatement pstmt  = conn.prepareStatement(sql);
     				
     		// Pass the parameters into the statement
+    		
     		pstmt.setString(1, newUsername);
     		pstmt.setString(2, newPassword);
+    		
+    		// Is this a corporate user?
+    		int is_corporate;
+    		if (isCorporate)
+    		{
+    			is_corporate = 1;
+    		}
+    		
+    		else
+    		{
+    			is_corporate = 0;
+    		}
+    		
+    		pstmt.setInt(3, is_corporate);
     		
     		pstmt.executeUpdate();   		
     		
@@ -151,8 +167,17 @@ public class dbManager
     			int userid = rs.getInt("userid");
     			String userName = rs.getString("username");
     			int currentBoardNum = rs.getInt("current_board");
+    			int is_corporate = rs.getInt("is_corporate");
     			
-    			user = new User(userid, userName, currentBoardNum);
+    			if (is_corporate == 1)
+    			{
+    				user = new CorporateUser(userid, userName, currentBoardNum);
+    			}
+    			
+    			else
+    			{
+    				user = new User(userid, userName, currentBoardNum);
+    			}    			
     		}
     		
     		conn.close();

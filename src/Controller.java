@@ -37,9 +37,10 @@ public class Controller {
 	 * @param newUsername The username to insert.
 	 * @param newPassword The password to insert.
 	 */
-	public void addUser(String newUsername, String newPassword)
+	public void addUser(String newUsername, String newPassword,
+			boolean isCorporate)
 	{
-		db.addUser(newUsername, newPassword);
+		db.addUser(newUsername, newPassword, isCorporate);
 	}
 	
 	/**

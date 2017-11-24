@@ -27,7 +27,7 @@ public class dbManagerTest
 	{
 		System.out.println("Adding new user \"Grumpy Cat\" to "
 				+ "database...");
-		db.addUser("Grumpy Cat", "12345678");
+		db.addUser("Grumpy Cat", "12345678", false);
 		
 		boolean usernameFound = db.searchForUsername("Grumpy Cat");
 		assertTrue(usernameFound);
