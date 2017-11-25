@@ -83,56 +83,6 @@ public class dbManager
 	}
 	
 	/**
-	 * Inserts a new user into the `user` table.
-	 * 
-	 * @param newUsername The username to insert.
-	 * @param newPassword The password to insert.
-	 */
-//	public void addUser(String newUsername, String newPassword,
-//			boolean isCorporate)
-//	{
-//		try
-//		{
-//    		Connection conn = this.connect();
-//    		
-//    		/* Prepare a statement to insert a new user into the
-//    		 * `user` table. */
-//    		
-//    		String sql = "INSERT INTO user(username, password, is_corporate)"
-//    				+ "VALUES(?,?)";
-//    		PreparedStatement pstmt  = conn.prepareStatement(sql);
-//    				
-//    		// Pass the parameters into the statement
-//    		
-//    		pstmt.setString(1, newUsername);
-//    		pstmt.setString(2, newPassword);
-//    		
-//    		// Is this a corporate user?
-//    		int is_corporate;
-//    		if (isCorporate)
-//    		{
-//    			is_corporate = 1;
-//    		}
-//    		
-//    		else
-//    		{
-//    			is_corporate = 0;
-//    		}
-//    		
-//    		pstmt.setInt(3, is_corporate);
-//    		
-//    		pstmt.executeUpdate();   		
-//    		
-//    		conn.close();
-//    	} 
-//    	
-//    	catch (SQLException e) 
-//    	{
-//    		System.out.println(e.getMessage());
-//		}
-//	}
-	
-	/**
 	 * Saves User data to the database.
 	 * 
 	 * @param user The User object to save to the database.
@@ -197,7 +147,7 @@ public class dbManager
 				user.setUserPrimaryKey(newPrimaryKey, this);
 				
 				// We also need to add a new Board
-				addBoardForNewUser(user, conn);
+				addBoardForNewUser(user, conn);				
 			}
 			
 			conn.close();
@@ -234,8 +184,18 @@ public class dbManager
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		
-		int newPrimaryKey = rs.getInt("LAST");
-		user.setCurrentBoard(newPrimaryKey);
+		int boardPrimaryKey = rs.getInt("LAST");
+		user.setCurrentBoard(boardPrimaryKey);
+		
+		// Update the user table with the current_board id
+		
+		sql = "UPDATE user SET current_board = ? WHERE userid = ?";
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, boardPrimaryKey);
+		pstmt.setInt(2, userPrimaryKey);
+		
+		pstmt.executeUpdate();
 	}
 	
 	/**
@@ -297,33 +257,38 @@ public class dbManager
 		}
     	
     	return user;
-    }
+    }	
 	
-	/**
-	 * Deletes a user from the database.
-	 * 
-	 * @param username The username of the user to be deleted.
-	 */
-	public void deleteUser(String username)
+	public void deleteUserFromDB(User user)
 	{
 		try
 		{
-    		Connection conn = this.connect();
-    		
-    		/* Prepare a statement to delete a user from the
-    		 * `user` table. */
-    		
-    		String sql = "DELETE FROM user WHERE username = ?";
-    		PreparedStatement pstmt  = conn.prepareStatement(sql);
-    				
-    		// Pass the parameters into the statement
-    		pstmt.setString(1, username);
-    		
-    		pstmt.executeUpdate();   		
-    		
-    		conn.close();
-    	} 
-    	
+			Connection conn = this.connect();
+			
+			int userPrimaryKey = user.getUserPrimaryKey();
+			
+//			String sql = "DELETE user, board, list, card"
+//					+ "FROM user, board, list, card"
+//					+ "WHERE user.userid = ?"
+//					+ "AND user.userid = board.user_id"
+//					+ "AND board.b_id = list.board_id"
+//					+ "AND list.l_id = card.list_id";
+			
+			String sql = "DELETE user, board, list, card"
+			+ "FROM user, board, list, card"
+			+ "WHERE user.userid = ?"
+			+ "AND user.userid = board.user_id,"
+			+ "board.b_id = list.board_id,"
+			+ "list.l_id = card.list_id";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userPrimaryKey);
+			
+			pstmt.executeUpdate();
+			
+			conn.close();
+		}
+		
     	catch (SQLException e) 
     	{
     		System.out.println(e.getMessage());

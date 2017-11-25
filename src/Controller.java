@@ -32,18 +32,6 @@ public class Controller {
 	}
 	
 	/**
-	 * Adds a new user to the database.
-	 * 
-	 * @param newUsername The username to insert.
-	 * @param newPassword The password to insert.
-	 */
-//	public void addUser(String newUsername, String newPassword,
-//			boolean isCorporate)
-//	{
-//		db.addUser(newUsername, newPassword, isCorporate);
-//	}
-	
-	/**
 	 * Saves the data for a single User to the database.
 	 * 
 	 * @param user The User object with data to be saved.
@@ -51,6 +39,16 @@ public class Controller {
 	public void saveUserToDB(User user)
 	{
 		db.saveUserToDB(user);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param user
+	 */
+	public void deleteUserFromDB(User user)
+	{
+		db.deleteUserFromDB(user);
 	}
 	
 	/**
@@ -81,16 +79,6 @@ public class Controller {
 				cardCounter ++;
 			}
 		}
-	}
-	
-	/**
-	 * Deletes a user from the database.
-	 * 
-	 * @param username The username of the user to be deleted.
-	 */
-	public void deleteUser(String username)
-	{
-		db.deleteUser(username);
 	}
 	
 	/**
