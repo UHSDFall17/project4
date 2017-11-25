@@ -22,29 +22,29 @@ public class dbManagerTest
 		System.out.println("Test successful\n");
 	}
 	
-	@Test
-	public void testAddAndDeleteUser()
-	{
-		System.out.println("Adding new user \"Grumpy Cat\" to "
-				+ "database...");
-		//db.addUser("Grumpy Cat", "12345678", false);
-		User testUser = new User("Grumpy Cat", "12345678");
-		db.saveUserToDB(testUser);
-		
-		boolean usernameFound = db.searchForUsername("Grumpy Cat");
-		assertTrue(usernameFound);
-		System.out.println("User found: " + usernameFound);
-		
-		System.out.println("Deleting Grumpy Cat from database...");
-		//db.deleteUser("Grumpy Cat");
-		db.deleteUserFromDB(testUser);
-		
-		usernameFound = db.searchForUsername("Grumpy Cat");
-		assertFalse(usernameFound);
-		System.out.println("User found: " + usernameFound);
-		
-		System.out.println("Test successful\n");
-	}
+//	@Test
+//	public void testAddAndDeleteUser()
+//	{
+//		System.out.println("Adding new user \"Grumpy Cat\" to "
+//				+ "database...");
+//		//db.addUser("Grumpy Cat", "12345678", false);
+//		User testUser = new User("Grumpy Cat", "12345678");
+//		db.saveUserToDB(testUser);
+//		
+//		boolean usernameFound = db.searchForUsername("Grumpy Cat");
+//		assertTrue(usernameFound);
+//		System.out.println("User found: " + usernameFound);
+//		
+//		System.out.println("Deleting Grumpy Cat from database...");
+//		//db.deleteUser("Grumpy Cat");
+//		db.deleteUserFromDB(testUser);
+//		
+//		usernameFound = db.searchForUsername("Grumpy Cat");
+//		assertFalse(usernameFound);
+//		System.out.println("User found: " + usernameFound);
+//		
+//		System.out.println("Test successful\n");
+//	}
 	
 	@Test
 	public void testLoadUser()

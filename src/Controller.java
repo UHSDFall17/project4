@@ -42,15 +42,15 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * TODO: make this work in the dbManager class
 	 * 
 	 * @param user
 	 */
-	public void deleteUserFromDB(User user)
-	{
-		db.deleteUserFromDB(user);
-	}
-	
+//	public void deleteUserFromDB(User user)
+//	{
+//		db.deleteUserFromDB(user);
+//	}
+//	
 	/**
 	 * Logs in an existing user.
 	 * 

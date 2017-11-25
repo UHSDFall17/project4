@@ -267,19 +267,13 @@ public class dbManager
 			
 			int userPrimaryKey = user.getUserPrimaryKey();
 			
-//			String sql = "DELETE user, board, list, card"
-//					+ "FROM user, board, list, card"
-//					+ "WHERE user.userid = ?"
-//					+ "AND user.userid = board.user_id"
-//					+ "AND board.b_id = list.board_id"
-//					+ "AND list.l_id = card.list_id";
-			
 			String sql = "DELETE user, board, list, card"
-			+ "FROM user, board, list, card"
-			+ "WHERE user.userid = ?"
-			+ "AND user.userid = board.user_id,"
-			+ "board.b_id = list.board_id,"
-			+ "list.l_id = card.list_id";
+					+ "FROM user, board, list, card"
+					+ "WHERE user.userid = ?"
+					+ "AND user.userid = board.user_id"
+					+ "AND board.b_id = list.board_id"
+					+ "AND list.l_id = card.list_id";
+			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userPrimaryKey);
