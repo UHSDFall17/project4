@@ -37,10 +37,20 @@ public class Controller {
 	 * @param newUsername The username to insert.
 	 * @param newPassword The password to insert.
 	 */
-	public void addUser(String newUsername, String newPassword,
-			boolean isCorporate)
+//	public void addUser(String newUsername, String newPassword,
+//			boolean isCorporate)
+//	{
+//		db.addUser(newUsername, newPassword, isCorporate);
+//	}
+	
+	/**
+	 * Saves the data for a single User to the database.
+	 * 
+	 * @param user The User object with data to be saved.
+	 */
+	public void saveUserToDB(User user)
 	{
-		db.addUser(newUsername, newPassword, isCorporate);
+		db.saveUserToDB(user);
 	}
 	
 	/**

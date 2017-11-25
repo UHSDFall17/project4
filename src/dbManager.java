@@ -88,48 +88,154 @@ public class dbManager
 	 * @param newUsername The username to insert.
 	 * @param newPassword The password to insert.
 	 */
-	public void addUser(String newUsername, String newPassword,
-			boolean isCorporate)
+//	public void addUser(String newUsername, String newPassword,
+//			boolean isCorporate)
+//	{
+//		try
+//		{
+//    		Connection conn = this.connect();
+//    		
+//    		/* Prepare a statement to insert a new user into the
+//    		 * `user` table. */
+//    		
+//    		String sql = "INSERT INTO user(username, password, is_corporate)"
+//    				+ "VALUES(?,?)";
+//    		PreparedStatement pstmt  = conn.prepareStatement(sql);
+//    				
+//    		// Pass the parameters into the statement
+//    		
+//    		pstmt.setString(1, newUsername);
+//    		pstmt.setString(2, newPassword);
+//    		
+//    		// Is this a corporate user?
+//    		int is_corporate;
+//    		if (isCorporate)
+//    		{
+//    			is_corporate = 1;
+//    		}
+//    		
+//    		else
+//    		{
+//    			is_corporate = 0;
+//    		}
+//    		
+//    		pstmt.setInt(3, is_corporate);
+//    		
+//    		pstmt.executeUpdate();   		
+//    		
+//    		conn.close();
+//    	} 
+//    	
+//    	catch (SQLException e) 
+//    	{
+//    		System.out.println(e.getMessage());
+//		}
+//	}
+	
+	/**
+	 * Saves User data to the database.
+	 * 
+	 * @param user The User object to save to the database.
+	 * @param password The password to save.
+	 */
+	public void saveUserToDB(User user)
 	{
 		try
 		{
-    		Connection conn = this.connect();
+			Connection conn = this.connect();
+			
+			String sql;
+			int userPrimaryKey = user.getUserPrimaryKey();
+			String username = user.getUserName();
+			String password = user.getPassword();
+			
+			int is_corporate = 0;
+			if (user instanceof CorporateUser)
+			{
+				is_corporate = 1;
+			}
+			
+			// Is this a new User?
+			if (userPrimaryKey == -1)
+			{
+	    		sql = "INSERT INTO user(username, password, is_corporate)"
+	    				+ "VALUES(?,?,?)";
+			}
     		
-    		/* Prepare a statement to insert a new user into the
-    		 * `user` table. */
-    		
-    		String sql = "INSERT INTO user(username, password, is_corporate)"
-    				+ "VALUES(?,?)";
-    		PreparedStatement pstmt  = conn.prepareStatement(sql);
-    				
-    		// Pass the parameters into the statement
-    		
-    		pstmt.setString(1, newUsername);
-    		pstmt.setString(2, newPassword);
-    		
-    		// Is this a corporate user?
-    		int is_corporate;
-    		if (isCorporate)
-    		{
-    			is_corporate = 1;
-    		}
-    		
-    		else
-    		{
-    			is_corporate = 0;
-    		}
-    		
-    		pstmt.setInt(3, is_corporate);
-    		
-    		pstmt.executeUpdate();   		
-    		
-    		conn.close();
-    	} 
-    	
+    		// This User already exists
+			else
+			{
+				sql = "UPDATE user SET username = ?, password = ?, is_corporate = ?)"
+						+ "WHERE userid = ?";
+						
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.setInt(3, is_corporate);
+			
+			/* When updating the table entry for a User that already exists, we need
+			 * to include the primary key already assigned to it. */
+			if (userPrimaryKey != -1)
+			{
+				pstmt.setInt(4, userPrimaryKey);
+			}
+			
+			pstmt.executeUpdate();
+			
+			/* If this is a new User, we need to get the primary key that's just
+			 * been assigned to it. Then we update the User object with the new
+			 * primary key so we can later update its entry in the database.*/
+			if (userPrimaryKey == -1)
+			{
+				sql = "SELECT last_insert_rowid() AS LAST FROM user";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				int newPrimaryKey = rs.getInt("LAST");
+				user.setUserPrimaryKey(newPrimaryKey, this);
+				
+				// We also need to add a new Board
+				addBoardForNewUser(user, conn);
+			}
+			
+			conn.close();
+		}
+		
     	catch (SQLException e) 
     	{
     		System.out.println(e.getMessage());
 		}
+	}
+	
+	/**
+	 * Creates a Board for a new User.
+	 * 
+	 * @param user The User that needs a new Board.
+	 */
+	private void addBoardForNewUser(User user, Connection conn) throws SQLException
+	{			
+		// Create a new Board in the database
+		
+		int userPrimaryKey = user.getUserPrimaryKey();
+		
+		String sql = "INSERT INTO board(user_id) VALUES(?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, userPrimaryKey);
+		
+		pstmt.executeUpdate();
+		
+		/* Get the primary key for the new Board and store it 
+		 * in the User object */
+		
+		sql = "SELECT last_insert_rowid() AS LAST FROM board";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		int newPrimaryKey = rs.getInt("LAST");
+		user.setCurrentBoard(newPrimaryKey);
 	}
 	
 	/**
@@ -171,12 +277,14 @@ public class dbManager
     			
     			if (is_corporate == 1)
     			{
-    				user = new CorporateUser(userid, userName, currentBoardNum);
+    				user = new CorporateUser(userid, userName);
+    				user.setCurrentBoard(currentBoardNum);
     			}
     			
     			else
     			{
-    				user = new User(userid, userName, currentBoardNum);
+    				user = new User(userid, userName);
+    				user.setCurrentBoard(currentBoardNum);;
     			}    			
     		}
     		

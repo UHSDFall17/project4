@@ -27,7 +27,9 @@ public class dbManagerTest
 	{
 		System.out.println("Adding new user \"Grumpy Cat\" to "
 				+ "database...");
-		db.addUser("Grumpy Cat", "12345678", false);
+		//db.addUser("Grumpy Cat", "12345678", false);
+		User newUser = new User("Grumpy Cat", "12345678");
+		db.saveUserToDB(newUser);
 		
 		boolean usernameFound = db.searchForUsername("Grumpy Cat");
 		assertTrue(usernameFound);
@@ -48,7 +50,8 @@ public class dbManagerTest
 	{
 		int userid = 1;
 		int currentBoardNum = 1;
-		User testUser = new User(userid, "Hello", currentBoardNum);
+		User testUser = new CorporateUser(userid, "Hello");
+		testUser.setCurrentBoard(currentBoardNum);
 		
 		System.out.println("Loading user \"Hello\" from database...");
 		User dbUser = db.loadUser("Hello", "Hello");

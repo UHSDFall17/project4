@@ -8,9 +8,9 @@ public class CorporateUser extends User
 		super();
 	}
 	
-	public CorporateUser(int newUserid, String newUserName, int newCurrentBoard)
+	public CorporateUser(int newUserid, String newUserName)
 	{
-		super(newUserid, newUserName, newCurrentBoard);
+		super(newUserid, newUserName);
 	}
 	
 	public boolean equals(Object obj)
