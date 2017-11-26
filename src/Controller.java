@@ -32,16 +32,25 @@ public class Controller {
 	}
 	
 	/**
-	 * Adds a new user to the database.
+	 * Saves the data for a single User to the database.
 	 * 
-	 * @param newUsername The username to insert.
-	 * @param newPassword The password to insert.
+	 * @param user The User object with data to be saved.
 	 */
-	public void addUser(String newUsername, String newPassword)
+	public void saveUserToDB(User user)
 	{
-		db.addUser(newUsername, newPassword);
+		db.saveUserToDB(user);
 	}
 	
+	/**
+	 * TODO: make this work in the dbManager class
+	 * 
+	 * @param user
+	 */
+//	public void deleteUserFromDB(User user)
+//	{
+//		db.deleteUserFromDB(user);
+//	}
+//	
 	/**
 	 * Logs in an existing user.
 	 * 
@@ -73,16 +82,6 @@ public class Controller {
 	}
 	
 	/**
-	 * Deletes a user from the database.
-	 * 
-	 * @param username The username of the user to be deleted.
-	 */
-	public void deleteUser(String username)
-	{
-		db.deleteUser(username);
-	}
-	
-	/**
 	 * Loads all List and Card data for the current Board.
 	 * 
 	 * @param board The currently active Board object.
@@ -94,13 +93,37 @@ public class Controller {
 	}
 	
 	/**
+	 * Saves the data for a single List to the database.
+	 * This does not save data for any Cards the List may be holding.
+	 * 
+	 * @param user The User that is current logged in.
+	 * @param list The List object with data to be saved.
+	 */
+	public void saveListToDB(User user, List list)
+	{
+		db.saveListToDB(user, list);
+	}
+	
+	/**
+	 * Deletes the data for a single List from the database.
+	 * This will also delete data for any Cards associated with
+	 * the deleted list.
+	 * 
+	 * @param list The List object with data to be deleted.
+	 */
+	public void deleteListFromDB(List list)
+	{
+		db.deleteListFromDB(list);
+	}
+	
+	/**
 	 * Saves the data for a single Card to the database.
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void saveCard(List list, Card card)
+	public void saveCardToDB(List list, Card card)
 	{
-		db.saveCard(list, card);
+		db.saveCardToDB(list, card);
 	}
 	
 	/**
@@ -108,9 +131,9 @@ public class Controller {
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void deleteCard(Card card)
+	public void deleteCardFromDB(Card card)
 	{
-		db.deleteCard(card);
+		db.deleteCardFromDB(card);
 	}
 	
 	public void invalidCommand(Board bor)

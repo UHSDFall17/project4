@@ -32,21 +32,19 @@ public class Project4
 		board1.addToListArray(list2);
 		
 		Controller controller = new Controller();
+		controller.createDBmanager();
+		User user = controller.loginExistingUser();
 		controller.idNumGen(board1);
+
+		ProjectTitle PTitle = new ProjectTitle();
+		PTitle.printTitle();
 		View view = new View();
 		view.printBoard(board1);
 		
-		
-		/*controller.createDBmanager();
-		User user = controller.loginExistingUser();
-		*/
-		controller.idNumGen(board1);
-		controller.requestInput(board1);
-		
-		view.printBoard(board1);
-		
-		// for database testing
-		//testDatabaseStuff(user, controller, view);
+		/* for database testing
+		username: Hello
+		password: Hello */
+		testDatabaseStuff(user, controller, view);
 	}
 	
 	public static void testDatabaseStuff(User user, Controller controller, View view)
@@ -58,12 +56,12 @@ public class Project4
 		
 		view.printBoard(dbBoard);
 		
-		System.out.println("\nAdding new Card...\n");
+		System.out.println("Adding new Card...\n");
 		
 		Card yoyoCard = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
 		List list1 = dbBoard.getListArrayElement(0);
 		list1.addToCardList(yoyoCard);
-		controller.saveCard(list1, yoyoCard);
+		controller.saveCardToDB(list1, yoyoCard);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
@@ -71,7 +69,7 @@ public class Project4
 		System.out.println("Modifying existing Card...\n");
 		
 		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
-		controller.saveCard(list1, yoyoCard);
+		controller.saveCardToDB(list1, yoyoCard);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);
@@ -82,8 +80,34 @@ public class Project4
 		//Card toDelete = list1.getCardListElement(4);
 		//controller.deleteCard(toDelete);
 		//list1.deleteCard(cardIndex);
-		controller.deleteCard(yoyoCard);
+		controller.deleteCardFromDB(yoyoCard);
 		list1.deleteCard(4);
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
+		
+		System.out.println("Adding new List with two Cards...\n");
+		
+		List list2 = new List("List for Testing");
+		dbBoard.addToListArray(list2);
+		controller.saveListToDB(user, list2);
+		
+		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
+		list2.addToCardList(testCard1);
+		controller.saveCardToDB(list2, testCard1);
+		
+		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
+		list2.addToCardList(testCard2);
+		controller.saveCardToDB(list2, testCard2);
+		
+		controller.idNumGen(dbBoard);
+		
+		view.printBoard(dbBoard);
+		
+		System.out.println("Deleting List...\n");
+		
+		controller.deleteListFromDB(list2);
+		dbBoard.deleteList(3);
 		controller.idNumGen(dbBoard);
 		
 		view.printBoard(dbBoard);

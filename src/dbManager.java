@@ -83,37 +83,119 @@ public class dbManager
 	}
 	
 	/**
-	 * Inserts a new user into the `user` table.
+	 * Saves User data to the database.
 	 * 
-	 * @param newUsername The username to insert.
-	 * @param newPassword The password to insert.
+	 * @param user The User object to save to the database.
+	 * @param password The password to save.
 	 */
-	public void addUser(String newUsername, String newPassword)
+	public void saveUserToDB(User user)
 	{
 		try
 		{
-    		Connection conn = this.connect();
+			Connection conn = this.connect();
+			
+			String sql;
+			int userPrimaryKey = user.getUserPrimaryKey();
+			String username = user.getUserName();
+			String password = user.getPassword();
+			
+			int is_corporate = 0;
+			if (user instanceof CorporateUser)
+			{
+				is_corporate = 1;
+			}
+			
+			// Is this a new User?
+			if (userPrimaryKey == -1)
+			{
+	    		sql = "INSERT INTO user(username, password, is_corporate)"
+	    				+ "VALUES(?,?,?)";
+			}
     		
-    		/* Prepare a statement to insert a new user into the
-    		 * `user` table. */
-    		
-    		String sql = "INSERT INTO user(username,password)"
-    				+ "VALUES(?,?)";
-    		PreparedStatement pstmt  = conn.prepareStatement(sql);
-    				
-    		// Pass the parameters into the statement
-    		pstmt.setString(1, newUsername);
-    		pstmt.setString(2, newPassword);
-    		
-    		pstmt.executeUpdate();   		
-    		
-    		conn.close();
-    	} 
-    	
+    		// This User already exists
+			else
+			{
+				sql = "UPDATE user SET username = ?, password = ?, is_corporate = ?)"
+						+ "WHERE userid = ?";
+						
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.setInt(3, is_corporate);
+			
+			/* When updating the table entry for a User that already exists, we need
+			 * to include the primary key already assigned to it. */
+			if (userPrimaryKey != -1)
+			{
+				pstmt.setInt(4, userPrimaryKey);
+			}
+			
+			pstmt.executeUpdate();
+			
+			/* If this is a new User, we need to get the primary key that's just
+			 * been assigned to it. Then we update the User object with the new
+			 * primary key so we can later update its entry in the database.*/
+			if (userPrimaryKey == -1)
+			{
+				sql = "SELECT last_insert_rowid() AS LAST FROM user";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				int newPrimaryKey = rs.getInt("LAST");
+				user.setUserPrimaryKey(newPrimaryKey, this);
+				
+				// We also need to add a new Board
+				addBoardForNewUser(user, conn);				
+			}
+			
+			conn.close();
+		}
+		
     	catch (SQLException e) 
     	{
     		System.out.println(e.getMessage());
 		}
+	}
+	
+	/**
+	 * Creates a Board for a new User.
+	 * 
+	 * @param user The User that needs a new Board.
+	 */
+	private void addBoardForNewUser(User user, Connection conn) throws SQLException
+	{			
+		// Create a new Board in the database
+		
+		int userPrimaryKey = user.getUserPrimaryKey();
+		
+		String sql = "INSERT INTO board(user_id) VALUES(?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, userPrimaryKey);
+		
+		pstmt.executeUpdate();
+		
+		/* Get the primary key for the new Board and store it 
+		 * in the User object */
+		
+		sql = "SELECT last_insert_rowid() AS LAST FROM board";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		int boardPrimaryKey = rs.getInt("LAST");
+		user.setCurrentBoard(boardPrimaryKey);
+		
+		// Update the user table with the current_board id
+		
+		sql = "UPDATE user SET current_board = ? WHERE userid = ?";
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, boardPrimaryKey);
+		pstmt.setInt(2, userPrimaryKey);
+		
+		pstmt.executeUpdate();
 	}
 	
 	/**
@@ -151,8 +233,19 @@ public class dbManager
     			int userid = rs.getInt("userid");
     			String userName = rs.getString("username");
     			int currentBoardNum = rs.getInt("current_board");
+    			int is_corporate = rs.getInt("is_corporate");
     			
-    			user = new User(userid, userName, currentBoardNum);
+    			if (is_corporate == 1)
+    			{
+    				user = new CorporateUser(userid, userName);
+    				user.setCurrentBoard(currentBoardNum);
+    			}
+    			
+    			else
+    			{
+    				user = new User(userid, userName);
+    				user.setCurrentBoard(currentBoardNum);;
+    			}    			
     		}
     		
     		conn.close();
@@ -164,33 +257,32 @@ public class dbManager
 		}
     	
     	return user;
-    }
+    }	
 	
-	/**
-	 * Deletes a user from the database.
-	 * 
-	 * @param username The username of the user to be deleted.
-	 */
-	public void deleteUser(String username)
+	public void deleteUserFromDB(User user)
 	{
 		try
 		{
-    		Connection conn = this.connect();
-    		
-    		/* Prepare a statement to delete a user from the
-    		 * `user` table. */
-    		
-    		String sql = "DELETE FROM user WHERE username = ?";
-    		PreparedStatement pstmt  = conn.prepareStatement(sql);
-    				
-    		// Pass the parameters into the statement
-    		pstmt.setString(1, username);
-    		
-    		pstmt.executeUpdate();   		
-    		
-    		conn.close();
-    	} 
-    	
+			Connection conn = this.connect();
+			
+			int userPrimaryKey = user.getUserPrimaryKey();
+			
+			String sql = "DELETE user, board, list, card"
+					+ "FROM user, board, list, card"
+					+ "WHERE user.userid = ?"
+					+ "AND user.userid = board.user_id"
+					+ "AND board.b_id = list.board_id"
+					+ "AND list.l_id = card.list_id";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userPrimaryKey);
+			
+			pstmt.executeUpdate();
+			
+			conn.close();
+		}
+		
     	catch (SQLException e) 
     	{
     		System.out.println(e.getMessage());
@@ -276,9 +368,77 @@ public class dbManager
 			String description = rs.getString("description");
 			
 			Card card = new Card(title, description);
-			card.setCardPrimaryKey(cardPrimaryKey);
+			card.setCardPrimaryKey(cardPrimaryKey, this);
 			list.addToCardList(card);
 		}
+	}
+	
+	/**
+	 * Saves the data for a single List to the database.
+	 * This does not save data for any Cards the List may be holding.
+	 * 
+	 * @param user The User that is current logged in.
+	 * @param list The List object with data to be saved.
+	 */
+	public void saveListToDB(User user, List list)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			String sql;
+			int listPrimaryKey = list.getListPrimaryKey();
+			int board_id = user.getCurrentBoardNum();
+			String list_title = list.getListTitle();
+			
+			// Is this a new List?
+			if (listPrimaryKey == -1)
+			{
+				// Prepare to insert a new row into the database table
+				sql = "INSERT INTO list(board_id, list_title) VALUES(?, ?)";
+			}
+			
+			// This List already exists
+			else
+			{
+				// Prepare to update an existing row in the table
+				sql = "UPDATE list SET board_id = ?, list_title = ?"
+						+ "WHERE l_id = ?";
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board_id);
+			pstmt.setString(2, list_title);
+			
+			/* When updating the table entry for a List that already exists, we need
+			 * to include the primary key already assigned to it. */
+			if (listPrimaryKey != -1)
+			{
+				pstmt.setInt(3, listPrimaryKey);
+			}
+			
+			pstmt.executeUpdate();
+			
+			/* If this is a new List, we need to get the primary key that's just
+			 * been assigned to it. Then we update the List object with the new
+			 * primary key so we can later update its entry in the database.*/
+			if (listPrimaryKey == -1)
+			{
+				sql = "SELECT last_insert_rowid() AS LAST FROM list";
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				int newPrimaryKey = rs.getInt("LAST");
+				list.setListPrimaryKey(newPrimaryKey, this);				
+			}
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
 	}
 	
 	/**
@@ -286,7 +446,7 @@ public class dbManager
 	 * 
 	 * @param card The Card object with data to be saved.
 	 */
-	public void saveCard(List list, Card card)
+	public void saveCardToDB(List list, Card card)
 	{
 		try
 		{
@@ -294,7 +454,7 @@ public class dbManager
 			
 			String sql;
 			int cardPrimaryKey = card.getCardPrimaryKey();
-			int list_id = list.getlistIdNum();
+			int list_id = list.getListPrimaryKey();
 			String card_title = card.getCardTitle();
 			String description = card.getCardDescription();
 			
@@ -339,8 +499,50 @@ public class dbManager
 				ResultSet rs = stmt.executeQuery(sql);
 				
 				int newPrimaryKey = rs.getInt("LAST");
-				card.setCardPrimaryKey(newPrimaryKey);				
+				card.setCardPrimaryKey(newPrimaryKey, this);				
 			}
+			
+			conn.close();
+		}
+		
+    	catch (SQLException e) 
+    	{
+    		System.out.println(e.getMessage());
+		}	
+	}
+	
+	/**
+	 * Deletes the data for a single List from the database.
+	 * This will also delete data for any Cards associated with
+	 * the deleted list.
+	 * 
+	 * @param list The List object with data to be deleted.
+	 */
+	public void deleteListFromDB(List list)
+	{
+		try
+		{
+			Connection conn = this.connect();
+			
+			int listPrimaryKey = list.getListPrimaryKey();
+			
+			// Delete List data from the database
+			
+			String sql = "DELETE FROM list WHERE l_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, listPrimaryKey);
+			
+			pstmt.executeUpdate();
+			
+			// Delete Card data associated with the deleted List
+			
+			sql = "DELETE FROM card where list_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, listPrimaryKey);
+			
+			pstmt.executeUpdate();
 			
 			conn.close();
 		}
@@ -354,9 +556,9 @@ public class dbManager
 	/**
 	 * Deletes the data for a single Card from the database.
 	 * 
-	 * @param card The Card object with data to be saved.
+	 * @param card The Card object with data to be deleted.
 	 */
-	public void deleteCard(Card card)
+	public void deleteCardFromDB(Card card)
 	{
 		try
 		{
