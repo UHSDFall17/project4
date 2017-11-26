@@ -236,9 +236,27 @@ public class Controller {
 		
 	}
 	
+	public static boolean isInteger(String s) {
+	    return isInteger(s,10);
+	}
+
+	public static boolean isInteger(String s, int radix) {
+	    if(s.isEmpty()) return false;
+	    for(int i = 0; i < s.length(); i++) {
+	        if(i == 0 && s.charAt(i) == '-') {
+	            if(s.length() == 1) return false;
+	            else continue;
+	        }
+	        if(Character.digit(s.charAt(i),radix) < 0) return false;
+	    }
+	    return true;
+	}
+	
 	public void requestInput(Board boardObject)
 	{
 		String input;
+		
+		View view = new View();
 		
 		Command command = new Command();
 		Scanner userInput = new Scanner(System.in);
@@ -246,8 +264,7 @@ public class Controller {
 		System.out.print(">>>");
 		input = userInput.nextLine();
 		inputList = command.processInput(input);
-		System.out.println("in delete");
-		// invalid command input
+		
 		printInputList();
 		 
 		if(inputList.get(0).equals("select") || inputList.get(0).equals("Select") || inputList.get(0).equals("SELECT"))
@@ -260,18 +277,16 @@ public class Controller {
 			//make a call to the edit function
 		}
 		
-		else if(inputList.get(0).equals("delete") || inputList.get(0).equals("Delete") || inputList.get(0).equals("DELETE"))
+		else if(inputList.get(0).toUpperCase().equals("DELETE"))
 		{
-			System.out.println("in delete");
-
 			//make a call to the Delete function
-			if(inputList.get(1).equals("board") || inputList.get(1).equals("Board") || inputList.get(1).equals("BOARD"))
+			if(inputList.get(1).toUpperCase().equals("BOARD"))
 			{
 				
 			}
-			else if((inputList.get(1).substring(0,4).equals("list") || inputList.get(1).substring(0,4).equals("List") || inputList.get(1).substring(0,4).equals("LIST")) && inListRange(boardObject) )
+			else if((inputList.get(1).substring(0,4).toUpperCase().equals("LIST")) && inListRange(boardObject) )
 			{
-				System.out.println("in delete list");
+				
 				if(inputList.get(1).length() > 4)
 				{
 					if(inputList.size() > 3)
@@ -281,37 +296,8 @@ public class Controller {
 					else
 					{
 						boardObject.deleteList(Integer.parseInt(inputList.get(1).substring(4)));
-						//requestInput(boardObject);
-					}
-				}
-				
-				else if(inputList.get(1).length() == 4)
-				{
-					if(inputList.size() > 3)
-					{
-						System.out.println("eeeeeeeee");
-						invalidCommand(boardObject);
-					}
-					else
-					{
-						boardObject.deleteList(Integer.parseInt(inputList.get(2)));
-						//requestInput(boardObject);
-					}
-				}
-			}
-			else if((inputList.get(1).substring(0,4).equals("card") || inputList.get(1).substring(0,4).equals("Card") || inputList.get(1).substring(0,4).equals("CARD")) && inCardRange(boardObject))
-			{
-				System.out.println("in delete card");
-				
-				if(inputList.get(1).length() > 4)
-				{
-					if(inputList.size() > 3)
-					{
-						invalidCommand(boardObject);
-					}
-					else
-					{
-						boardObject.getListArrayElement(getListPos(boardObject)+1).deleteCard(getCardPos(boardObject,getListPos(boardObject))-1);
+						System.out.println("List deleted");
+						idNumGen(boardObject);
 						requestInput(boardObject);
 					}
 				}
@@ -324,32 +310,119 @@ public class Controller {
 					}
 					else
 					{
-						boardObject.getListArrayElement(getListPos(boardObject)+1).deleteCard(getCardPos(boardObject,getListPos(boardObject))-1);
-						//requestInput(boardObject);
+						boardObject.deleteList(Integer.parseInt(inputList.get(2)));
+						System.out.println("<< List deleted >>");
+						idNumGen(boardObject);
+						requestInput(boardObject);
 					}
 				}
 			}
-			else if(inputList.get(1).equals("comment") || inputList.get(1).equals("Comment") || inputList.get(1).equals("Comment"))
+			else if((inputList.get(1).substring(0,4).toUpperCase().equals("CARD")) && inCardRange(boardObject))
+			{
+				
+				if(inputList.get(1).length() > 4)
+				{
+					if(inputList.size() > 3)
+					{
+						invalidCommand(boardObject);
+					}
+					else
+					{
+						boardObject.getListArrayElement(getListPos(boardObject)+1).deleteCard(getCardPos(boardObject,getListPos(boardObject))-1);
+						System.out.println("<< Card deleted >>");
+						idNumGen(boardObject);
+						requestInput(boardObject);
+					}
+				}
+				
+				else if(inputList.get(1).length() == 4)
+				{
+					if(inputList.size() > 3)
+					{
+						invalidCommand(boardObject);
+					}
+					else
+					{
+						boardObject.getListArrayElement(getListPos(boardObject)-1).deleteCard(getCardPos(boardObject,getListPos(boardObject))+1);
+						System.out.println("<< Card deleted >>");
+						idNumGen(boardObject);
+						requestInput(boardObject);
+					}
+				}
+			}
+			else if(inputList.get(1).toUpperCase().equals("COMMENT"))
 			{
 				
 			}
 			
 			else 
-			{System.out.println("error in delete");
+			{
 				invalidCommand(boardObject);
 			}
 		}
 		
-		else if(inputList.get(0).equals("add") || inputList.get(0).equals("Add") || inputList.get(0).equals("ADD"))
+		else if(inputList.get(0).toUpperCase().equals("ADD"))
 		{
 			//make a call to the add function
+			if(inputList.get(1).toUpperCase().equals("LIST"))
+			{
+				
+			}
+			else if(inputList.get(1).toUpperCase().equals("CARD"))
+			{
+				if((inputList.get(2).toUpperCase().equals("TO")) && (inputList.get(3).toUpperCase().substring(0,4).equals("LIST")))
+				{
+					if((inputList.size() == 5) && isInteger(inputList.get(4)))
+					{
+						Card newCard = new Card();
+						boardObject.getListArrayElement(Integer.parseInt(inputList.get(4))-1).addToCardList(newCard);
+						System.out.println("<< Card added to list " + inputList.get(4) + " >>" );
+						idNumGen(boardObject);
+						requestInput(boardObject);
+					}
+					else if((inputList.size() == 4) && isInteger(inputList.get(3).substring(4,5)))
+					{
+						Card newCard = new Card();
+						boardObject.getListArrayElement(Integer.parseInt(inputList.get(3).substring(4,5))-1).addToCardList(newCard);
+						System.out.println("<< Card added to list " + inputList.get(3).substring(4,5) + " >>" );
+						idNumGen(boardObject);
+						requestInput(boardObject);
+					}
+					
+					else
+					{
+						System.out.println("ee");
+						invalidCommand(boardObject);
+					}
+				}
+				else if(inputList.size() == 2)
+				{
+					
+				}
+				else
+				{
+					System.out.println("eeee");
+					invalidCommand(boardObject);
+				}
+			}
 		}
 		
-		else if(inputList.get(0).equals("move") || inputList.get(0).equals("Move") || inputList.get(0).equals("MOVE"))
+		
+		else if(inputList.get(0).toUpperCase().equals("VIEW"))
 		{
-			//make a call to the move function
+			//Prints current board
+			if(inputList.size() == 1)
+			{
+					view.printBoard(boardObject);
+					requestInput(boardObject);
+			}
+			
+			else
+				{
+					invalidCommand(boardObject);
+				}
 		}
-		
+
 		else
 		{
 			System.out.println("error1");

@@ -26,7 +26,7 @@ public class Card
 	public Card()
 	{
 		title = "N/A";
-		description = "Insert description here.";
+		description = "No description.";
 		cardPrimaryKey = -1;
 	}
 	

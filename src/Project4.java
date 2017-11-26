@@ -32,17 +32,21 @@ public class Project4
 		board1.addToListArray(list2);
 		
 		Controller controller = new Controller();
-		controller.createDBmanager();
-		User user = controller.loginExistingUser();
 		controller.idNumGen(board1);
-
-		ProjectTitle PTitle = new ProjectTitle();
-		PTitle.printTitle();
 		View view = new View();
 		view.printBoard(board1);
 		
+		
+		/*controller.createDBmanager();
+		User user = controller.loginExistingUser();
+		*/
+		controller.idNumGen(board1);
+		controller.requestInput(board1);
+		
+		view.printBoard(board1);
+		
 		// for database testing
-		testDatabaseStuff(user, controller, view);
+		//testDatabaseStuff(user, controller, view);
 	}
 	
 	public static void testDatabaseStuff(User user, Controller controller, View view)
