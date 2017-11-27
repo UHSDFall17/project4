@@ -7,6 +7,8 @@ public class Card
 	private int cardIdNum;			// id number to display in view for the user
 	private int cardPrimaryKey;		// used to identify the card in the database
 	private ArrayList<Comment> commentList = new ArrayList<Comment>(); 
+	private int numVote;
+	
 	
 	public Card(String title, String description, Comment commentValue) 
 	{

@@ -211,19 +211,26 @@ public class Controller {
 	{
 		if(inputList.get(1).length() > 4)
 		{
-			if(boardObject.getListArraySize() > Integer.parseInt(inputList.get(1).substring(4)))
+			if(!isInteger(inputList.get(1).substring(4,inputList.get(1).length())))
+			{
+				return false;
+			}
+			else if(boardObject.getListArraySize() > Integer.parseInt(inputList.get(1).substring(4)))
 			{
 				return true;
 			}
 		}
-		else if(inputList.get(1).length() == 4)
+		else if((inputList.get(1).length() == 4) && (inputList.size() == 3))
 		{
-			if(boardObject.getListArraySize() >= Integer.parseInt(inputList.get(2)))
+			if(!isInteger(inputList.get(2)))
+			{
+				return false;
+			}
+			else if(boardObject.getListArraySize() >= Integer.parseInt(inputList.get(2)))
 			{
 				return true;
 			}
 		}
-		
 			return false;
 		
 	}
@@ -234,24 +241,38 @@ public class Controller {
 		
 		if(inputList.get(1).length() > 4)
 		{	
-			for(int i = 0; i < boardObject.getListArraySize(); i++)
+			if(!isInteger(inputList.get(1).substring(4,inputList.get(1).length())))
 			{
-				temp += boardObject.getListArrayElement(i).getCardListSize();
-				if(temp > Integer.parseInt(inputList.get(1).substring(4)))
+				return false;
+			}
+			else
+			{
+				for(int i = 0; i < boardObject.getListArraySize(); i++)
+				{
+					temp += boardObject.getListArrayElement(i).getCardListSize();
+					if(temp > Integer.parseInt(inputList.get(1).substring(4)))
 						{
 							return true;
 						}
+				}
 			}
 		}
-		else if(inputList.get(1).length() == 4)
+		else if((inputList.get(1).length()) == 4 && (inputList.size() == 3))
 		{
-			for(int i = 0; i < boardObject.getListArraySize(); i++)
+			if(!isInteger(inputList.get(2)))
 			{
-				temp += boardObject.getListArrayElement(i).getCardListSize();
-				if(temp > Integer.parseInt(inputList.get(2)))
+				return false;
+			}
+			else
+			{
+				for(int i = 0; i < boardObject.getListArraySize(); i++)
+				{
+					temp += boardObject.getListArrayElement(i).getCardListSize();
+					if(temp > Integer.parseInt(inputList.get(2)))
 						{
 							return true;
 						}
+				}
 			}
 		}
 		
@@ -288,8 +309,15 @@ public class Controller {
 		input = userInput.nextLine();
 		inputList = command.processInput(input);
 		
-		printInputList();
+		//printInputList();
 		 
+		inputProcessing(boardObject,input,view);
+		
+		userInput.close();
+	}
+	
+	public void inputProcessing(Board boardObject,String input,View view)
+	{
 		if(inputList.get(0).equals("select") || inputList.get(0).equals("Select") || inputList.get(0).equals("SELECT"))
 		{
 			//make a call to the select function
@@ -307,7 +335,7 @@ public class Controller {
 			{
 				
 			}
-			else if((inputList.get(1).substring(0,4).toUpperCase().equals("LIST")) && inListRange(boardObject) )
+			else if((inputList.get(1).substring(0,4).toUpperCase().equals("LIST")) && inListRange(boardObject))
 			{
 				
 				if(inputList.get(1).length() > 4)
@@ -389,7 +417,11 @@ public class Controller {
 			//make a call to the add function
 			if(inputList.get(1).toUpperCase().equals("LIST"))
 			{
-				
+				List newList = new List();
+				boardObject.addToListArray(newList);
+				System.out.println("<< List added >>" );
+				idNumGen(boardObject);
+				requestInput(boardObject);
 			}
 			else if(inputList.get(1).toUpperCase().equals("CARD"))
 			{
@@ -414,7 +446,6 @@ public class Controller {
 					
 					else
 					{
-						System.out.println("ee");
 						invalidCommand(boardObject);
 					}
 				}
@@ -424,7 +455,6 @@ public class Controller {
 				}
 				else
 				{
-					System.out.println("eeee");
 					invalidCommand(boardObject);
 				}
 			}
@@ -451,7 +481,5 @@ public class Controller {
 			System.out.println("error1");
 			invalidCommand(boardObject);
 		}
-		
-		userInput.close();
 	}
 }

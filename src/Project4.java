@@ -1,4 +1,4 @@
-//import java.util.Scanner;
+import java.util.Scanner;
 //import java.io.*;
 //import java.io.BufferedReader;
 //import java.io.FileInputStream;
@@ -9,6 +9,8 @@ public class Project4
 {
 	public static void main(String[] args)
 	{
+		Scanner user_input = null;
+		String user_option = null;
 		Comment comment1 = new Comment("comment1comment1comment1comment1comment1comment1");
 		Comment comment2 = new Comment("comment2comment2comment2comment2comment2comment2comment2");
 		Comment comment3 = new Comment("comment3comment3comment3comment3");
@@ -31,20 +33,47 @@ public class Project4
 		board1.addToListArray(list1);
 		board1.addToListArray(list2);
 		
-		Controller controller = new Controller();
-		controller.createDBmanager();
-		User user = controller.loginExistingUser();
-		controller.idNumGen(board1);
-
 		ProjectTitle PTitle = new ProjectTitle();
 		PTitle.printTitle();
-		View view = new View();
-		view.printBoard(board1);
 		
-		/* for database testing
-		username: Hello
-		password: Hello */
-		testDatabaseStuff(user, controller, view);
+		Controller controller = new Controller();//Controller is called
+		controller.createDBmanager();
+		
+		user_input = new Scanner(System.in);
+		user_option = user_input.next();
+		
+		
+		if(user_option.equals("1") || user_option.equals("Login"))
+		{	
+			User user = controller.loginExistingUser();//Login function is called
+			controller.idNumGen(board1);
+			
+			View view = new View();
+			view.printBoard(board1);
+			
+			/* for database testing
+			username: Hello
+			password: Hello */
+			
+			testDatabaseStuff(user, controller, view);
+		}
+		else if(user_option.equals("2") || user_option.equals("Register"))
+		{
+			System.out.println("Hello World");
+			/*dbManager db = new dbManager();
+			
+			CreateAccount create = new CreateAccount();
+			create.insertAccount(db);*/
+			
+			
+		}
+		else if(user_option.equals("3") || user_option.equals("Exit"))
+		{
+			System.out.println("Goodbye! Terminating program");
+			System.exit(0);
+			
+		}
+		
 	}
 	
 	public static void testDatabaseStuff(User user, Controller controller, View view)
