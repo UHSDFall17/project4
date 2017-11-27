@@ -13,17 +13,22 @@ public class Project4
 		String user_option = null;
 		Comment comment1 = new Comment("comment1comment1comment1comment1comment1comment1");
 		Comment comment2 = new Comment("comment2comment2comment2comment2comment2comment2comment2");
-		Comment comment3 = new Comment("comment3comment3comment3comment3");
+		
 		
 		Card card1 = new Card( "titleOfCard1", "discriptionOfCard1");
 		card1.addToCommentList(comment1);
 		Card card2 = new Card( "titleOfCard2", "discriptionOfCard2");
 		card2.addToCommentList(comment2);
 		Card card3 = new Card( "titleOfCard3", "discriptionOfCard3");
-		card3.addToCommentList(comment3);
+		
 		
 		List list1 = new List("List_Title_blahblah1");
 		List list2 = new List("List_Title_Of_blahblah2");
+		
+		CheckList check1 = new CheckList();
+		CheckList check2 = new CheckList();
+		card1.addToCheckList(check1);
+		card1.addToCheckList(check2);
 		
 		list1.addToCardList(card1);
 		list1.addToCardList(card2);
@@ -33,10 +38,10 @@ public class Project4
 		board1.addToListArray(list1);
 		board1.addToListArray(list2);
 		
-		ProjectTitle PTitle = new ProjectTitle();
-		PTitle.printTitle();
 		
 		Controller controller = new Controller();//Controller is called
+		controller.idNumGen(board1);
+		controller.requestInput(board1);
 		controller.createDBmanager();
 		
 		user_input = new Scanner(System.in);

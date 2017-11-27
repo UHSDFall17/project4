@@ -10,12 +10,33 @@ public class View {
 			for(int y = 0; y < boardInput.getListArrayElement(i).getCardListSize(); y++)
 			{
 				System.out.println("   Card " + boardInput.getListArrayElement(i).getCardListElement(y).getCardIdNum() + ": " + boardInput.getListArrayElement(i).getCardListElement(y).getCardTitle());
-				System.out.println("         " +  "  " + boardInput.getListArrayElement(i).getCardListElement(y).getCardDescription());
 				
+				
+				if(!boardInput.getListArrayElement(i).getCardListElement(y).getCardDescription().equals("No description."))
+				{
+					System.out.println("             * description");
+				}
+				if (!(boardInput.getListArrayElement(i).getCardListElement(y).getNumVote() == 0))
+				{
+					System.out.println("             * " + boardInput.getListArrayElement(i).getCardListElement(y).getNumVote() + " votes");
+				}
+				if (!(boardInput.getListArrayElement(i).getCardListElement(y).getNumAttachment() == 0))
+				{
+					System.out.println("             * " + boardInput.getListArrayElement(i).getCardListElement(y).getNumAttachment() + " attachment");
+				}
+				if (!(boardInput.getListArrayElement(i).getCardListElement(y).getCommentListSize() == 0))
+				{
+					System.out.println("             * " + boardInput.getListArrayElement(i).getCardListElement(y).getCommentListSize() + " comment");
+				}
+				if (!(boardInput.getListArrayElement(i).getCardListElement(y).getCheckListSize() == 0))
+				{
+					System.out.println("             * (" + boardInput.getListArrayElement(i).getCardListElement(y).getCheckListFinishSize() + "/" + boardInput.getListArrayElement(i).getCardListElement(y).getCheckListSize() + ") check list");
+				}
 				if((boardInput.getListArrayElement(i).getCardListSize()-1) == y)
 				{
 					System.out.println();
 				}
+				
 			}
 		}
 	}

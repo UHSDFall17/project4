@@ -9,7 +9,7 @@ public class List
 
 	public List()
 	{
-		listTitle = "N/A";
+		listTitle = "No title";
 		listPrimaryKey = -1;
 	}	
 
