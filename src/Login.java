@@ -15,12 +15,7 @@ public class Login {
 		
 		while(try_counter < 3 && successful_login == false)
 		{
-			try_counter+=1;
-			if(try_counter == 3)
-			{
-				System.out.println("Too many unsuccessful events! Terminating program.");
-				System.exit(0);
-			}
+			
 			
 			System.out.println("Type in your username and password to access your account.");
 			System.out.print("Username: ");
@@ -28,17 +23,28 @@ public class Login {
 			input1 = user_input.next();
 			
 			System.out.print("Password: ");
+			
 			input2 = user_input.next();
 			
 			User user = db.loadUser(input1, input2);
 			
 			if (user != null)
 			{
+				try_counter = 0;
 				System.out.println("Welcome " + input1 + "!");
             	successful_login = true;
             	user_input.close();
             	
             	return user;
+			}
+			else
+			{
+				try_counter+=1;
+				if(try_counter == 3)
+				{
+					System.out.println("Too many unsuccessful events! Terminating program.");
+					System.exit(0);
+				}
 			}
 		}
 		

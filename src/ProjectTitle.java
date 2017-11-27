@@ -18,7 +18,10 @@ public class ProjectTitle {
 "                                                                                           MM  \n" +
 "                                                                                           MM  \n" +
 "                                                                                           MM  ");
+		
 		System.out.println("1. Login \t 2.Resgister \t 3.Exit\n");
+		
+		System.out.println("Enter the number or name of functionality: ");
 		
 	}
 }
