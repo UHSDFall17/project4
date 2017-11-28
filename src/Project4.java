@@ -9,8 +9,7 @@ public class Project4
 {
 	public static void main(String[] args)
 	{
-		Scanner user_input = null;
-		String user_option = null;
+		
 		Comment comment1 = new Comment("comment1comment1comment1comment1comment1comment1");
 		Comment comment2 = new Comment("comment2comment2comment2comment2comment2comment2comment2");
 		
@@ -29,7 +28,8 @@ public class Project4
 		CheckList check2 = new CheckList();
 		card1.addToCheckList(check1);
 		card1.addToCheckList(check2);
-		
+		card3.setNumVote(3);
+		card2.setNumAttachment(1);
 		list1.addToCardList(card1);
 		list1.addToCardList(card2);
 		list2.addToCardList(card3);
@@ -38,46 +38,37 @@ public class Project4
 		board1.addToListArray(list1);
 		board1.addToListArray(list2);
 		
-		
+		board1.setCurrentBoardNum(1);
+	
 		Controller controller = new Controller();//Controller is called
 		controller.idNumGen(board1);
 		controller.requestInput(board1);
 		controller.createDBmanager();
 		
-		user_input = new Scanner(System.in);
-		user_option = user_input.next();
 		
-		
-		if(user_option.equals("1") || user_option.equals("Login"))
-		{	
-			User user = controller.loginExistingUser();//Login function is called
-			controller.idNumGen(board1);
+			//User user = controller.loginExistingUser();//Login function is called
+			//controller.idNumGen(board1);
 			
 			View view = new View();
 			view.printBoard(board1);
+			Login login = new Login();
+			User userTest = new User();
+			userTest = login.loginUser(controller.createDBmanager());
+			userTest.setCurrentBoard(board1.getCurrentBoardNum());
 			
 			/* for database testing
 			username: Hello
 			password: Hello */
 			
-			testDatabaseStuff(user, controller, view);
-		}
-		else if(user_option.equals("2") || user_option.equals("Register"))
-		{
-			System.out.println("Hello World");
-			/*dbManager db = new dbManager();
+			//testDatabaseStuff(user, controller, view);
+		
 			
+			/*
 			CreateAccount create = new CreateAccount();
 			create.insertAccount(db);*/
 			
 			
-		}
-		else if(user_option.equals("3") || user_option.equals("Exit"))
-		{
-			System.out.println("Goodbye! Terminating program");
-			System.exit(0);
-			
-		}
+	
 		
 	}
 	

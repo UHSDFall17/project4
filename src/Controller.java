@@ -14,9 +14,10 @@ public class Controller {
 	 * Creates a new dbManager object.
 	 * 
 	 */
-	public void createDBmanager()
+	public dbManager createDBmanager()
 	{
 		db = new dbManager();
+		return db;
 	}
 	
 	/** 
@@ -62,6 +63,33 @@ public class Controller {
 		User user = login.loginUser(db);
 		
 		return user;
+	}
+	
+	public void Start()
+	{
+		ProjectTitle title = new ProjectTitle();
+		title.printTitle();
+		Scanner user_input = null;
+		String user_option = null;
+		user_input = new Scanner(System.in);
+		user_option = user_input.next();
+		
+		
+		if(user_option.equals("1") || user_option.equals("Login"))
+		{	
+			
+			
+		}
+		else if(user_option.equals("2") || user_option.equals("Register"))
+		{
+			
+		}
+		else if(user_option.equals("3") || user_option.equals("Exit"))
+		{
+			System.out.println("Goodbye! Terminating program");
+			System.exit(0);
+			
+		}
 	}
 	
 	// GENERATE A UNIQUE NUMBER FOR CARDS AND LISTS

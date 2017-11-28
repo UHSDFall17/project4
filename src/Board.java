@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Board {
 	
 	private ArrayList<List> listArray = new ArrayList<List>();
+	private int currentBoardNum;
 	
 	public void addToListArray(List listInput)
 	{
@@ -22,5 +23,13 @@ public class Board {
 	public void deleteList(int index)
 	{
 		listArray.remove(index-1);
+	}
+
+	public int getCurrentBoardNum() {
+		return currentBoardNum;
+	}
+
+	public void setCurrentBoardNum(int currentBoardNum) {
+		this.currentBoardNum = currentBoardNum;
 	}
 }

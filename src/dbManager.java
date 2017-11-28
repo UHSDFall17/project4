@@ -341,6 +341,7 @@ public class dbManager
 			
 			board.addToListArray(list);
 		}
+		
 	}
 	
 	/**

@@ -9,6 +9,7 @@ public class Card
 	private ArrayList<Comment> commentList = new ArrayList<Comment>(); 
 	private ArrayList<CheckList> checkList = new ArrayList<CheckList>(); 
 	private ArrayList<Integer> checkListFinish = new ArrayList<Integer>(); 
+	
 	private int numVote;
 	private int numAttachment;
 	
