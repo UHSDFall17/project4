@@ -232,18 +232,21 @@ public class dbManager
     		{
     			int userid = rs.getInt("userid");
     			String userName = rs.getString("username");
+    			String newPassword = rs.getString("password");
     			int currentBoardNum = rs.getInt("current_board");
     			int is_corporate = rs.getInt("is_corporate");
     			
     			if (is_corporate == 1)
     			{
     				user = new CorporateUser(userid, userName);
+    				user.setPassword(newPassword);
     				user.setCurrentBoard(currentBoardNum);
     			}
     			
     			else
     			{
     				user = new User(userid, userName);
+    				user.setPassword(newPassword);
     				user.setCurrentBoard(currentBoardNum);;
     			}    			
     		}

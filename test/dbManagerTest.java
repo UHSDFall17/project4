@@ -52,6 +52,7 @@ public class dbManagerTest
 		int userid = 1;
 		int currentBoardNum = 1;
 		User testUser = new CorporateUser(userid, "Hello");
+		testUser.setPassword("Hello");
 		testUser.setCurrentBoard(currentBoardNum);
 		
 		System.out.println("Loading user \"Hello\" from database...");
