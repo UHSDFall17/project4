@@ -69,7 +69,7 @@ public class dbManagerTest
 	}
 	
 	@Test
-	public void testSaveAndDeleteList()
+	public void testSaveAndDeleteAndList()
 	{
 		System.setIn(in);
 		
@@ -91,43 +91,37 @@ public class dbManagerTest
 		
 		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
 		list.addToCardList(testCard2);
-		db.saveCardToDB(list, testCard2);
+		db.saveCardToDB(list, testCard2);				
 		
 		db.deleteListFromDB(list);
-		board.deleteList(3);
+		board.deleteList(3);		
 		
-//		Controller controller = new Controller();
-//		View view = new View();
-//		
-//		Board dbBoard = new Board();
-//		int boardID = user.getCurrentBoardNum();
-//		dbBoard.setCurrentBoardNum(boardID);
-//		db.loadBoardData(dbBoard, boardID);
-//		//controller.idNumGen(dbBoard);
-//		
-//		List list2 = new List("List for Testing");
-//		dbBoard.addToListArray(list2);
-//		controller.saveListToDB(user, list2);
-//		
-//		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
-//		list2.addToCardList(testCard1);
-//		controller.saveCardToDB(list2, testCard1);
-//		
-//		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
-//		list2.addToCardList(testCard2);
-//		controller.saveCardToDB(list2, testCard2);
-//		
-//		controller.idNumGen(dbBoard);
-//		
-//		view.printBoard(dbBoard);
-//		
-//		System.out.println("Deleting List...\n");
-//		
-//		controller.deleteListFromDB(list2);
-//		dbBoard.deleteList(3);
-//		controller.idNumGen(dbBoard);
-//		
-//		view.printBoard(dbBoard);
+		System.setIn(System.in);
+	}
+	
+	@Test
+	public void testAddModifyDeleteCard()
+	{
+		System.setIn(in);
+		
+		User user = login.loginUser(db);
+		
+		int boardID = user.getCurrentBoardNum();
+		Board board = new Board();
+		board.setCurrentBoardNum(boardID);
+		
+		db.loadBoardData(board, boardID);
+		
+		Card yoyoCard = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
+		List list = board.getListArrayElement(0);
+		list.addToCardList(yoyoCard);
+		db.saveCardToDB(list, yoyoCard);
+		
+		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
+		db.saveCardToDB(list, yoyoCard);
+		
+		db.deleteCardFromDB(yoyoCard);
+		list.deleteCard(4);
 		
 		System.setIn(System.in);
 	}
