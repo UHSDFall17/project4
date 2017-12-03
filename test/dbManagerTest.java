@@ -1,10 +1,14 @@
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
+
 import org.junit.Test;
 
 public class dbManagerTest 
 {
+	ByteArrayInputStream in = new ByteArrayInputStream("Hello Hello".getBytes());
 	dbManager db = new dbManager();
+	Login login = new Login();
 	
 	@Test
 	public void testSearchForUsername() 
@@ -62,5 +66,69 @@ public class dbManagerTest
 		assertEquals(testUser, dbUser);
 		
 		System.out.println("Test successful\n");
+	}
+	
+	@Test
+	public void testSaveAndDeleteList()
+	{
+		System.setIn(in);
+		
+		User user = login.loginUser(db);
+		
+		int boardID = user.getCurrentBoardNum();
+		Board board = new Board();
+		board.setCurrentBoardNum(boardID);
+		
+		db.loadBoardData(board, boardID);
+		
+		List list = new List("List for Testing");
+		board.addToListArray(list);
+		db.saveListToDB(user, list);
+		
+		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
+		list.addToCardList(testCard1);
+		db.saveCardToDB(list, testCard1);
+		
+		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
+		list.addToCardList(testCard2);
+		db.saveCardToDB(list, testCard2);
+		
+		db.deleteListFromDB(list);
+		board.deleteList(3);
+		
+//		Controller controller = new Controller();
+//		View view = new View();
+//		
+//		Board dbBoard = new Board();
+//		int boardID = user.getCurrentBoardNum();
+//		dbBoard.setCurrentBoardNum(boardID);
+//		db.loadBoardData(dbBoard, boardID);
+//		//controller.idNumGen(dbBoard);
+//		
+//		List list2 = new List("List for Testing");
+//		dbBoard.addToListArray(list2);
+//		controller.saveListToDB(user, list2);
+//		
+//		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
+//		list2.addToCardList(testCard1);
+//		controller.saveCardToDB(list2, testCard1);
+//		
+//		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
+//		list2.addToCardList(testCard2);
+//		controller.saveCardToDB(list2, testCard2);
+//		
+//		controller.idNumGen(dbBoard);
+//		
+//		view.printBoard(dbBoard);
+//		
+//		System.out.println("Deleting List...\n");
+//		
+//		controller.deleteListFromDB(list2);
+//		dbBoard.deleteList(3);
+//		controller.idNumGen(dbBoard);
+//		
+//		view.printBoard(dbBoard);
+		
+		System.setIn(System.in);
 	}
 }
