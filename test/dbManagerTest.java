@@ -72,6 +72,9 @@ public class dbManagerTest
 		list.addToCardList(testCard2);
 		db.saveCardToDB(list, testCard2);				
 		
+		list.setListTitle("Modified List");
+		db.saveListToDB(user, list);
+		
 		db.deleteListFromDB(list);
 		board.deleteList(3);		
 		
