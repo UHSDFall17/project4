@@ -31,17 +31,20 @@ public class dbManagerTest
 	{
 		int userid = 1;
 		int currentBoardNum = 1;
-		User testUser = new CorporateUser(userid, "Hello");
-		testUser.setPassword("Hello");
-		testUser.setCurrentBoard(currentBoardNum);
+		User corpUser = new CorporateUser(userid, "Hello");
+		corpUser.setPassword("Hello");
+		corpUser.setCurrentBoard(currentBoardNum);
 		
 		System.out.println("Loading user \"Hello\" from database...");
 		User dbUser = db.loadUser("Hello", "Hello");
 		
 		System.out.println("Testing loaded user data...");
-		assertEquals(testUser, dbUser);
+		assertEquals(corpUser, dbUser);
 		
 		System.out.println("Test successful\n");
+		
+		User user = db.loadUser("Person", "Password");
+		user = db.loadUser("invalid user", "invalid password");
 	}
 	
 	@Test
@@ -112,5 +115,10 @@ public class dbManagerTest
 		db.saveUserToDB(user);
 		
 		db.deleteUserFromDB(user);
+		
+		CorporateUser corpUser = new CorporateUser();
+		db.saveUserToDB(corpUser);
+		
+		db.deleteUserFromDB(corpUser);
 	}
 }
