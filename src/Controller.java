@@ -346,9 +346,10 @@ public class Controller {
 	
 	public void inputProcessing(Board boardObject,String input,View view)
 	{
-		if(inputList.get(0).equals("select") || inputList.get(0).equals("Select") || inputList.get(0).equals("SELECT"))
+		if(inputList.get(0).toUpperCase().equals("EXIT"))
 		{
-			//make a call to the select function
+			System.out.println("Exit program");
+			return;
 		}
 		
 		else if(inputList.get(0).equals("edit") || inputList.get(0).equals("Edit") || inputList.get(0).equals("EDIT"))

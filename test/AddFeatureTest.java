@@ -1,12 +1,14 @@
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Scanner;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 public class AddFeatureTest {
-
+	
 	@Test
 	public void testAddList() {
 		

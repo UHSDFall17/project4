@@ -1,3 +1,5 @@
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Scanner;
 //import java.io.*;
 //import java.io.BufferedReader;
@@ -56,18 +58,17 @@ public class Project4
 			userTest = login.loginUser(controller.createDBmanager());
 			userTest.setCurrentBoard(board1.getCurrentBoardNum());
 			
-		
+					
 			
 			/*
 			CreateAccount create = new CreateAccount();
 			create.insertAccount(db);*/
 			
 			
-	
+		
 		
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/UHSDFall17/project4.git
+
+
