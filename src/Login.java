@@ -11,7 +11,8 @@ public class Login {
 		String input1,input2;
 		int try_counter = 0;
 		boolean successful_login = false;
-		Scanner user_input = null;
+		Scanner user_input = new Scanner(System.in);
+		User user = null;
 		
 		while(try_counter < 3 && successful_login == false)
 		{
@@ -19,23 +20,19 @@ public class Login {
 			
 			System.out.println("Type in your username and password to access your account.");
 			System.out.print("Username: ");
-			user_input = new Scanner(System.in); 
 			input1 = user_input.next();
 			
 			System.out.print("Password: ");
 			
 			input2 = user_input.next();
 			
-			User user = db.loadUser(input1, input2);
+			user = db.loadUser(input1, input2);
 			
 			if (user != null)
 			{
 				try_counter = 0;
 				System.out.println("Welcome " + input1 + "!");
             	successful_login = true;
-            	user_input.close();
-            	
-            	return user;
 			}
 			else
 			{
@@ -50,6 +47,6 @@ public class Login {
 		
 		user_input.close();
 		
-		return null;		
+		return user;
 	}
 }
