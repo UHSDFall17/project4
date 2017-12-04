@@ -66,8 +66,4 @@ public class Project4
 	
 		
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/UHSDFall17/project4.git
