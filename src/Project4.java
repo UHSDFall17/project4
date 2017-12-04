@@ -56,11 +56,6 @@ public class Project4
 			userTest = login.loginUser(controller.createDBmanager());
 			userTest.setCurrentBoard(board1.getCurrentBoardNum());
 			
-			/* for database testing
-			username: Hello
-			password: Hello */
-			
-			//testDatabaseStuff(user, controller, view);
 		
 			
 			/*
@@ -70,71 +65,5 @@ public class Project4
 			
 	
 		
-	}
-	
-	public static void testDatabaseStuff(User user, Controller controller, View view)
-	{
-		Board dbBoard = new Board();
-		int boardID = user.getCurrentBoardNum();
-		controller.loadBoardData(dbBoard, boardID);
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
-		
-		System.out.println("Adding new Card...\n");
-		
-		Card yoyoCard = new Card("Buy a yoyo", "Who doesn't want a yoyo?");
-		List list1 = dbBoard.getListArrayElement(0);
-		list1.addToCardList(yoyoCard);
-		controller.saveCardToDB(list1, yoyoCard);
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
-		
-		System.out.println("Modifying existing Card...\n");
-		
-		yoyoCard.setCardTitle("Buy 2 yoyos and a hula hoop");
-		controller.saveCardToDB(list1, yoyoCard);
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
-		
-		System.out.println("Deleting \"yoyo\" Card...\n");
-		
-		//int cardIndex = 4;
-		//Card toDelete = list1.getCardListElement(4);
-		//controller.deleteCard(toDelete);
-		//list1.deleteCard(cardIndex);
-		controller.deleteCardFromDB(yoyoCard);
-		list1.deleteCard(4);
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
-		
-		System.out.println("Adding new List with two Cards...\n");
-		
-		List list2 = new List("List for Testing");
-		dbBoard.addToListArray(list2);
-		controller.saveListToDB(user, list2);
-		
-		Card testCard1 = new Card("Test Card 1", "This Card will soon be deleted");
-		list2.addToCardList(testCard1);
-		controller.saveCardToDB(list2, testCard1);
-		
-		Card testCard2 = new Card("Test Card 2", "I want to be deleted too");
-		list2.addToCardList(testCard2);
-		controller.saveCardToDB(list2, testCard2);
-		
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
-		
-		System.out.println("Deleting List...\n");
-		
-		controller.deleteListFromDB(list2);
-		dbBoard.deleteList(3);
-		controller.idNumGen(dbBoard);
-		
-		view.printBoard(dbBoard);
 	}
 }
