@@ -115,7 +115,7 @@ public class dbManager
     		// This User already exists
 			else
 			{
-				sql = "UPDATE user SET username = ?, password = ?, is_corporate = ?)"
+				sql = "UPDATE user SET username = ?, password = ?, is_corporate = ?"
 						+ "WHERE userid = ?";
 						
 			}
@@ -147,7 +147,7 @@ public class dbManager
 				user.setUserPrimaryKey(newPrimaryKey, this);
 				
 				// We also need to add a new Board
-				addBoardForNewUser(user, conn);				
+				//addBoardForNewUser(user, conn);				
 			}
 			
 			conn.close();
@@ -157,46 +157,7 @@ public class dbManager
     	{
     		System.out.println(e.getMessage());
 		}
-	}
-	
-	/**
-	 * Creates a Board for a new User.
-	 * 
-	 * @param user The User that needs a new Board.
-	 */
-	private void addBoardForNewUser(User user, Connection conn) throws SQLException
-	{			
-		// Create a new Board in the database
-		
-		int userPrimaryKey = user.getUserPrimaryKey();
-		
-		String sql = "INSERT INTO board(user_id) VALUES(?)";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setInt(1, userPrimaryKey);
-		
-		pstmt.executeUpdate();
-		
-		/* Get the primary key for the new Board and store it 
-		 * in the User object */
-		
-		sql = "SELECT last_insert_rowid() AS LAST FROM board";
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
-		
-		int boardPrimaryKey = rs.getInt("LAST");
-		user.setCurrentBoard(boardPrimaryKey);
-		
-		// Update the user table with the current_board id
-		
-		sql = "UPDATE user SET current_board = ? WHERE userid = ?";
-		pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setInt(1, boardPrimaryKey);
-		pstmt.setInt(2, userPrimaryKey);
-		
-		pstmt.executeUpdate();
-	}
+	}	
 	
 	/**
 	 * Loads data for an existing user.
@@ -232,18 +193,21 @@ public class dbManager
     		{
     			int userid = rs.getInt("userid");
     			String userName = rs.getString("username");
+    			String newPassword = rs.getString("password");
     			int currentBoardNum = rs.getInt("current_board");
     			int is_corporate = rs.getInt("is_corporate");
     			
     			if (is_corporate == 1)
     			{
     				user = new CorporateUser(userid, userName);
+    				user.setPassword(newPassword);
     				user.setCurrentBoard(currentBoardNum);
     			}
     			
     			else
     			{
     				user = new User(userid, userName);
+    				user.setPassword(newPassword);
     				user.setCurrentBoard(currentBoardNum);;
     			}    			
     		}
@@ -267,12 +231,7 @@ public class dbManager
 			
 			int userPrimaryKey = user.getUserPrimaryKey();
 			
-			String sql = "DELETE user, board, list, card"
-					+ "FROM user, board, list, card"
-					+ "WHERE user.userid = ?"
-					+ "AND user.userid = board.user_id"
-					+ "AND board.b_id = list.board_id"
-					+ "AND list.l_id = card.list_id";
+			String sql = "DELETE FROM user WHERE userid = ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			

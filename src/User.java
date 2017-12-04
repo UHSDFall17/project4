@@ -31,11 +31,8 @@ public class User
 	
 	public void setUserPrimaryKey(int newUserid, dbManager caller)
 	{
-		if (caller instanceof dbManager)
-		{
-			userPrimaryKey = newUserid;
-		}
-	}
+		userPrimaryKey = newUserid;
+	}	
 	
 	public void setUserName(String newUserName)
 	{
@@ -74,25 +71,20 @@ public class User
 	
 	public boolean equals(Object obj)
 	{
-		if (obj != null && obj.getClass() == getClass())
-		{
-			User objUser = (User) obj;
-			if (userPrimaryKey == objUser.userPrimaryKey
-					&& userName.equals(objUser.userName)
-					&& currentBoardNum == objUser.currentBoardNum)
-			{
-				return true;
-			}
-			
-			else
-			{
-				return false;
-			}
-		}
+		if (this == obj)
+			return true;
 		
-		else
-		{
+		if (obj == null)
 			return false;
-		}
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		User objUser = (User) obj;
+					
+		return userPrimaryKey == objUser.userPrimaryKey
+				&& userName.equals(objUser.userName)
+				&& password.equals(objUser.password)
+				&& currentBoardNum == objUser.currentBoardNum;		
 	}
 }
